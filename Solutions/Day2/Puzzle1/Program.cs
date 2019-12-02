@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace Puzzle1
 {
@@ -10,23 +8,11 @@ namespace Puzzle1
         {
             Console.WriteLine("Welcome to puzzle 1 of day 2!");
 
-            var opcodeStrings = File.ReadAllText("Opcode.txt").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            List<int> opcode = new List<int>();
-
-            foreach (var s in opcodeStrings)
-            {
-                opcode.Add(Convert.ToInt32(s));
-            }
-
-            Console.WriteLine("Loaded the opcode from the file into memory.");
-
-            var computer = new IntcodeComputer(opcode.ToArray());
+            var computer = new IntcodeComputer("Opcode.txt");
 
             ReplacmentLoop(computer);
 
-            Console.WriteLine($"Starting program!");
             computer.RunProgram();
-            Console.WriteLine($"Finnished running the program.");
 
             ReadProgramValuesLoop(computer);
         }

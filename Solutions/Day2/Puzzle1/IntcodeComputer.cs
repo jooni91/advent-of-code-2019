@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Puzzle1
 {
     public class IntcodeComputer
     {
+        private readonly int[] _initialOpcode;
         private int[] _opcode;
 
-        public IntcodeComputer(int[] opcode)
+        public IntcodeComputer(string opcodeFilePath)
         {
-            _opcode = opcode;
+            _initialOpcode = LoadInitialOpcodeFromFile(opcodeFilePath).ToArray();
+            _initialOpcode.CopyTo(_opcode = new int[_initialOpcode.Length], 0);
+
+            Console.WriteLine("Loaded the opcode from the file into memory.");
         }
 
         public int this[int index]
@@ -17,11 +24,19 @@ namespace Puzzle1
             set { _opcode[index] = value; }
         }
 
+        /// <summary>
+        /// The current state of the computer.
+        /// </summary>
         public bool ProgramRunning { get; private set; } = false;
 
+        /// <summary>
+        /// Start running the program.
+        /// </summary>
         public void RunProgram()
         {
             ProgramRunning = true;
+
+            Console.WriteLine($"Starting program!");
 
             for (int i = 0; i < _opcode.Length; i += 4)
             {
@@ -47,21 +62,33 @@ namespace Puzzle1
                     break;
                 }
             }
-        }
 
-        public void SetOpcode(int[] opcode)
+            Console.WriteLine($"Finnished running the program.");
+        }
+        /// <summary>
+        /// Resets the program to it's initial state.
+        /// </summary>
+        public void ResetProgram()
         {
-            _opcode = opcode;
+            _initialOpcode.CopyTo(_opcode, 0);
         }
 
-        public int Add(int a, int b)
+        private int Add(int a, int b)
         {
             return a + b;
         }
-
-        public int Multiply(int a, int b)
+        private int Multiply(int a, int b)
         {
             return a * b;
+        }
+        private IEnumerable<int> LoadInitialOpcodeFromFile(string path)
+        {
+            var opcodeStrings = File.ReadAllText(path).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var s in opcodeStrings)
+            {
+                yield return Convert.ToInt32(s);
+            }
         }
     }
 }

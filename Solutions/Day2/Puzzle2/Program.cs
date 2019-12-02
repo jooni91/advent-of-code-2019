@@ -1,7 +1,6 @@
 ﻿using Puzzle1;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Puzzle2
 {
@@ -11,34 +10,22 @@ namespace Puzzle2
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to puzzle 1 of day 2!");
+            Console.WriteLine("Welcome to puzzle 2 of day 2!");
 
-            var opcodeStrings = File.ReadAllText("Opcode.txt").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            Opcode = new List<int>();
-
-            foreach (var s in opcodeStrings)
-            {
-                Opcode.Add(Convert.ToInt32(s));
-            }
-
-            Console.WriteLine("Loaded the opcode from the file into memory.");
-
-            Console.WriteLine("What is the output you are looking for?");
+            Console.WriteLine("What is the output that you are looking for?");
 
             GetNounAndVerbOfOutput(Convert.ToInt32(Console.ReadLine()));
         }
 
         public static void GetNounAndVerbOfOutput(int output)
         {
-            var computer = new IntcodeComputer(Opcode.ToArray());
-
-            Console.WriteLine($"Starting program!");
+            var computer = new IntcodeComputer("Opcode.txt");
 
             for (int i = 0; i < 100; i++)
             {
                 for (int k = 0; k < 100; k++)
                 {
-                    computer.SetOpcode(Opcode.ToArray());
+                    computer.ResetProgram();
                     computer[1] = i;
                     computer[2] = k;
                     computer.RunProgram();
@@ -47,6 +34,8 @@ namespace Puzzle2
                     {
                         break;
                     }
+
+                    Console.WriteLine("No match. Reset and try next pair of values.");
                 }
 
                 if (computer[0] == output)
@@ -55,44 +44,9 @@ namespace Puzzle2
                 }
             }
 
-            Console.WriteLine($"Finnished running the program.");
-
-            ReadProgramValuesLoop(computer);
-        }
-        public static void ReplacmentLoop(IntcodeComputer computer)
-        {
-            Console.WriteLine("Do you want to replace any values? y = yes, just enter = no");
-            var input = Console.ReadLine();
-
-            if (input == "y")
-            {
-                Console.WriteLine("Enter the position of the value: ");
-                var position = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter the value: ");
-                var value = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine($"Replacing value on position {position} with the value {value}.");
-                computer[position] = value;
-
-                ReplacmentLoop(computer);
-            }
-        }
-        public static void ReadProgramValuesLoop(IntcodeComputer computer)
-        {
-            Console.WriteLine("Enter the position of the value you want to read or just press enter to exit.");
-
-            try
-            {
-                var position = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine($"The value of position {position} is {computer[position]}.");
-
-                ReadProgramValuesLoop(computer);
-            }
-            catch
-            {
-
-            }
+            Console.WriteLine($"The results for the specified output ({output}) are: Noun (position 1) = {computer[1]}, Verb (position 2) = {computer[2]}.");
+            Console.WriteLine($"The result for puzzle 2: 100 * {computer[1]} + {computer[2]} = {100 * computer[1] + computer[2]}");
+            Console.ReadLine();
         }
     }
 }
