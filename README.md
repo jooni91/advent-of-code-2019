@@ -14,3 +14,5 @@ Links to each day for fast access:
 [Day 1](https://github.com/jooni91/advent-of-code-2019/tree/master/Solutions/Day1)
 
 [Day 2](https://github.com/jooni91/advent-of-code-2019/tree/master/Solutions/Day2)
+
+[Day 3](https://github.com/jooni91/advent-of-code-2019/tree/master/Solutions/Day3)
