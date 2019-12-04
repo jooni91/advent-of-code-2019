@@ -9,7 +9,7 @@ I will use mainly C# and my goal is to train myself in using all the new feature
 I will create a new solution for each day in it's on folder. The solutions will contain 2 projects, one project per puzzle.
 A readme for the documention can be found in the DayX folder for each day.
 
-Links to each day for fast access:
+List of links to each day for:
 
 [Day 1](https://github.com/jooni91/advent-of-code-2019/tree/master/Solutions/Day1)
 
@@ -18,3 +18,5 @@ Links to each day for fast access:
 [Day 3](https://github.com/jooni91/advent-of-code-2019/tree/master/Solutions/Day3)
 
 [Day 4](https://github.com/jooni91/advent-of-code-2019/tree/master/Solutions/Day4)
+
+[Day 5](https://github.com/jooni91/advent-of-code-2019/tree/master/Solutions/Day5)
