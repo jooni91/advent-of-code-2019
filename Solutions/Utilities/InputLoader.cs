@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Puzzle1
+namespace Utilities
 {
     public static class InputLoader
     {

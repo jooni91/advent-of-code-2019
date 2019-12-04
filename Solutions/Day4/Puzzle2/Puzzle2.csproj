@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Puzzle1\Puzzle1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Utilities">
+      <HintPath>..\..\Utilities\bin\Release\netstandard2.1\Utilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

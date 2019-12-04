@@ -1,5 +1,6 @@
 ﻿using Puzzle1;
 using System;
+using Utilities;
 
 namespace Puzzle2
 {

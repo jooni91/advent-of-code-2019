@@ -16,4 +16,10 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Utilities">
+      <HintPath>..\..\Utilities\bin\Release\netstandard2.1\Utilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
