@@ -13,7 +13,13 @@ namespace Puzzle1
         /// <returns></returns>
         public static string LoadInputsFromFileAsString(string filePath)
         {
-            return File.ReadAllText(filePath);
+            Console.WriteLine("Started loading inputs from file.");
+
+            var result = File.ReadAllText(filePath);
+
+            Console.WriteLine("Loading inputs from file was successful.");
+
+            return result;
         }
 
         /// <summary>
@@ -29,6 +35,8 @@ namespace Puzzle1
                 seperator = new char[] { ',' };
             }
 
+            Console.WriteLine($"Splitting input by the following seperators {string.Concat(seperator).PadRight(1)}");
+
             return inputs.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
         }
 
@@ -39,10 +47,14 @@ namespace Puzzle1
         /// <returns></returns>
         public static IEnumerable<int> ConvertInputsToIntegers(this string[] inputs)
         {
+            Console.WriteLine("Converting inputs to integer values.");
+
             foreach (var s in inputs)
             {
                 yield return Convert.ToInt32(s);
             }
+
+            Console.WriteLine("Finnished converting inputs to integer values.");
         }
 
         /// <summary>
@@ -52,12 +64,16 @@ namespace Puzzle1
         /// <returns></returns>
         public static IEnumerable<string> ReadInputLines(this string inputs)
         {
+            Console.WriteLine("Start reading each line of input as own string value.");
+
             using var sr = new StringReader(inputs);
 
             while (sr.Peek() >= 0)
             {
                 yield return sr.ReadLine()!;
             }
+
+            Console.WriteLine("Finnished reading each line of input as own string value.");
         }
     }
 }
