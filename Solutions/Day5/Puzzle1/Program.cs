@@ -11,7 +11,8 @@ namespace Puzzle1
 
             var input = InputLoader.LoadInputsFromFileAsString("Inputs.txt").SplitInputs(new char[] { '-' });
 
-            
+            var computer = new IntcodeComputer("Inputs.txt");
+            computer.RunProgram();
 
             Console.ReadLine();
         }

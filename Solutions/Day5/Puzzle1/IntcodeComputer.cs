@@ -45,27 +45,54 @@ namespace Puzzle1
                 switch (GetOpcode(this[i]))
                 {
                     case "01":
-                        this[this[i + 3]] = Add(GetValue(i + 1, GetMode(this[i], 1)), GetValue(i + 2, GetMode(this[i], 2)));
+                        this[GetValue(i + 3, 1)] = Add(GetValue(i + 1, GetMode(this[i], 1)), GetValue(i + 2, GetMode(this[i], 2)));
                         skipCount = 4;
                         break;
                     case "02":
-                        this[this[i + 3]] = Multiply(GetValue(i + 1, GetMode(this[i], 1)), GetValue(i + 2, GetMode(this[i], 2)));
+                        this[GetValue(i + 3, 1)] = Multiply(GetValue(i + 1, GetMode(this[i], 1)), GetValue(i + 2, GetMode(this[i], 2)));
                         skipCount = 4;
                         break;
                     case "03":
                         Console.WriteLine("Input value:");
-                        this[GetValue(i + 1, GetMode(this[i], 1))] = Convert.ToInt32(Console.ReadLine());
+                        this[this[i + 1]] = Convert.ToInt32(Console.ReadLine());
                         skipCount = 2;
                         break;
                     case "04":
-                        Console.WriteLine(this[GetValue(i + 1, GetMode(this[i], 1))]);
+                        Console.WriteLine(GetValue(i + 1, GetMode(this[i], 1)));
                         skipCount = 2;
+                        break;
+                    case "05":
+                        if (GetValue(i + 1, GetMode(this[i], 1)) != 0)
+                        {
+                            i = GetValue(i + 2, GetMode(this[i], 2)) - skipCount;
+                            break;
+                        }
+
+                        skipCount = 3;
+                        break;
+                    case "06":
+                        if (GetValue(i + 1, GetMode(this[i], 1)) == 0)
+                        {
+                            i = GetValue(i + 2, GetMode(this[i], 2)) - skipCount;
+                            break;
+                        }
+
+                        skipCount = 3;
+                        break;
+                    case "07":
+                        this[GetValue(i + 3, 1)] = GetValue(i + 1, GetMode(this[i], 1)) < GetValue(i + 2, GetMode(this[i], 2)) ? 1 : 0;
+                        skipCount = 4;
+                        break;
+                    case "08":
+                        this[GetValue(i + 3, 1)] = GetValue(i + 1, GetMode(this[i], 1)) == GetValue(i + 2, GetMode(this[i], 2)) ? 1 : 0;
+                        skipCount = 4;
                         break;
                     case "99":
                         ProgramRunning = false;
                         break;
                     default:
                         Console.WriteLine($"Encountered unknown opcode: {this[i]}");
+                        skipCount = 1;
                         break;
                 }
 
@@ -88,8 +115,24 @@ namespace Puzzle1
         private string GetOpcode(int value)
         {
             var valueString = value.ToString();
+            var returnValue = string.Empty;
 
-            return string.Concat(valueString[valueString.Length - 2], valueString[valueString.Length - 1]);
+            for (int i = valueString.Length - 1; i > -1; i--)
+            {
+                returnValue = returnValue.Insert(0, valueString[i].ToString());
+
+                if (returnValue.Length == 2)
+                {
+                    break;
+                }
+            }
+
+            if (returnValue.Length < 2)
+            {
+                returnValue = returnValue.Insert(0, "0");
+            }
+
+            return returnValue;
         }
         private int GetValue(int index, int mode)
         {
@@ -111,7 +154,12 @@ namespace Puzzle1
 
             var valueString = value.ToString();
 
-            return valueString[valueString.Length - 2 - index];
+            if (valueString.Length < 2 + index)
+            {
+                return 0;
+            }
+
+            return valueString[valueString.Length - 2 - index].ToString() == "0" ? 0 : 1;
         }
         private int Add(int a, int b)
         {
