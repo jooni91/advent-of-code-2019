@@ -1,8 +1,47 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="InputFiles\Day1.txt" />
+    <None Remove="InputFiles\Day2.txt" />
+    <None Remove="InputFiles\Day3.txt" />
+    <None Remove="InputFiles\Day4.txt" />
+    <None Remove="InputFiles\Day5.txt" />
+    <None Remove="InputFiles\Day6.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="InputFiles\Day1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day4.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day5.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day6.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Solutions\Day2\" />
+    <Folder Include="Solutions\Day3\" />
+    <Folder Include="Solutions\Day4\" />
+    <Folder Include="Solutions\Day5\" />
+    <Folder Include="Solutions\Day6\" />
+  </ItemGroup>
 
 </Project>
