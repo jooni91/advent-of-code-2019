@@ -30,7 +30,14 @@ namespace MyAoC2019
 
             Console.WriteLine($"The result for day {args[0]} part {args[1]} is {solutionForDay.GetResult((Part)Enum.Parse(typeof(Part), args[1]))}.");
 
-            Console.ReadLine();
+            Console.WriteLine($"");
+
+            Console.WriteLine($"If you want to continue running another solution type y and press enter.");
+
+            if (Console.ReadLine() == "y")
+            {
+                Main(Array.Empty<string>());
+            }
         }
 
         private static IEnumerable<string> AskForArguments()
