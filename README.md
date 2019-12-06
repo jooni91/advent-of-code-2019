@@ -18,3 +18,5 @@ Links to solution for each day:
 [Day 5](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day5)
 
 [Day 6](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day6)
+
+[Day 7](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day7)
