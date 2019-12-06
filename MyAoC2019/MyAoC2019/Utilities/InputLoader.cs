@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MyAoC2019.Utilities
 {
@@ -36,6 +37,33 @@ namespace MyAoC2019.Utilities
             }
 
             return inputs.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        /// <summary>
+        /// Split inputs by an specified seperator.
+        /// </summary>
+        /// <param name="inputs">Inputs to split.</param>
+        /// <param name="keepSeperator">Include the sperator in the returned result.</param>
+        /// <param name="seperator">The seperator to use. Commas are used as a default seperator if not specified.</param>
+        /// <returns></returns>
+        public static IEnumerable<string[]> SplitInputs(this IEnumerable<string> inputs, bool keepSeperator, params char[] seperator)
+        {
+            if (seperator.Length == 0)
+            {
+                seperator = new char[] { ',' };
+            }
+
+            foreach (var s in inputs)
+            {
+                if (keepSeperator)
+                {
+                    yield return Regex.Split(s, $@"(?<=[{string.Concat(seperator)}])");
+                }
+                else
+                {
+                    yield return s.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
+                }
+            }
         }
 
         /// <summary>
