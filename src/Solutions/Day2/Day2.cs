@@ -6,29 +6,49 @@ namespace MyAoC2019.Solutions.Day2
 {
     public class Day2 : DayBase
     {
+        public bool UnitTestMode { get; set; } = false;
+
         protected override int Day => 2;
 
         protected override string PartOne(string input)
         {
             var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray());
 
-            ReplacementLoop(computer);
+            if (UnitTestMode)
+            {
+                computer[1] = 12;
+                computer[2] = 2;
 
-            computer.RunProgram();
+                computer.RunProgram();
 
-            ReadProgramValuesLoop(computer);
+                return computer[0].ToString();
+            }
+            else
+            {
+                ReplacementLoop(computer);
 
-            return string.Empty;
+                computer.RunProgram();
+
+                ReadProgramValuesLoop(computer);
+
+                return string.Empty;
+            }
         }
         protected override string PartTwo(string input)
         {
-            Console.WriteLine("Welcome to puzzle 2 of day 2!");
+            int output;
 
-            Console.WriteLine("What is the output that you are looking for?");
+            if (UnitTestMode)
+            {
+                output = 19690720;
+            }
+            else
+            {
+                Console.WriteLine("What is the output that you are looking for?");
+                output = Convert.ToInt32(Console.ReadLine());
+            }
 
-            GetNounAndVerbOfOutput(Convert.ToInt32(Console.ReadLine()), input);
-
-            return string.Empty;
+            return GetNounAndVerbOfOutput(output, input);
         }
 
         private void ReplacementLoop(IntcodeComputer computer)
@@ -66,7 +86,7 @@ namespace MyAoC2019.Solutions.Day2
 
             }
         }
-        private void GetNounAndVerbOfOutput(int output, string input)
+        private string GetNounAndVerbOfOutput(int output, string input)
         {
             var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray());
 
@@ -94,8 +114,9 @@ namespace MyAoC2019.Solutions.Day2
             }
 
             Console.WriteLine($"The results for the specified output ({output}) are: Noun (position 1) = {computer[1]}, Verb (position 2) = {computer[2]}.");
-            Console.WriteLine($"The result for puzzle 2: 100 * {computer[1]} + {computer[2]} = {100 * computer[1] + computer[2]}");
-            Console.ReadLine();
+            Console.WriteLine($"The result for puzzle 2: 100 * {computer[1]} + {computer[2]} = {(100 * computer[1]) + computer[2]}");
+
+            return ((100 * computer[1]) + computer[2]).ToString();
         }
     }
 }

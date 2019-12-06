@@ -24,6 +24,11 @@ namespace MyAoC2019.Utilities
         }
 
         /// <summary>
+        /// All list that contains all the outputs from the program that was running.
+        /// </summary>
+        public List<int> Outputs { get; private set; } = new List<int>();
+
+        /// <summary>
         /// The current state of the computer.
         /// </summary>
         public bool ProgramRunning { get; private set; } = false;
@@ -31,7 +36,7 @@ namespace MyAoC2019.Utilities
         /// <summary>
         /// Start running the program.
         /// </summary>
-        public void RunProgram()
+        public void RunProgram(string? args = null)
         {
             ProgramRunning = true;
 
@@ -53,11 +58,12 @@ namespace MyAoC2019.Utilities
                         break;
                     case "03":
                         Console.WriteLine("Input value:");
-                        this[this[i + 1]] = Convert.ToInt32(Console.ReadLine());
+                        this[this[i + 1]] = Convert.ToInt32(args ?? Console.ReadLine());
                         skipCount = 2;
                         break;
                     case "04":
-                        Console.WriteLine(GetValue(i + 1, GetMode(this[i], 1)));
+                        Outputs.Add(GetValue(i + 1, GetMode(this[i], 1)));
+                        Console.WriteLine(Outputs.Last());
                         skipCount = 2;
                         break;
                     case "05":
@@ -66,7 +72,6 @@ namespace MyAoC2019.Utilities
                             i = GetValue(i + 2, GetMode(this[i], 2)) - skipCount;
                             break;
                         }
-
                         skipCount = 3;
                         break;
                     case "06":
@@ -75,7 +80,6 @@ namespace MyAoC2019.Utilities
                             i = GetValue(i + 2, GetMode(this[i], 2)) - skipCount;
                             break;
                         }
-
                         skipCount = 3;
                         break;
                     case "07":
@@ -109,6 +113,7 @@ namespace MyAoC2019.Utilities
         public void ResetProgram()
         {
             _initialOpcode.CopyTo(_opcode, 0);
+            Outputs = new List<int>();
         }
 
         private string GetOpcode(int value)

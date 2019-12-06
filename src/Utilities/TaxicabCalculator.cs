@@ -38,14 +38,14 @@ namespace MyAoC2019.Utilities
 
             foreach (var point in coordsA)
             {
-                index++;
-
                 if (coordsB.Contains(point))
                 {
                     var steps = 2 + index + coordsB.ToList().FindIndex(0, pointB => pointB == point);
 
                     yield return steps;
                 }
+
+                index++;
             }
         }
         private IEnumerable<Point> StepsIn2DVectorSpace(string[] path)

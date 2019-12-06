@@ -24,44 +24,44 @@ namespace MyAoC2019.Utilities
         }
 
         /// <summary>
-        /// Split inputs by an specified seperator.
+        /// Split inputs by an specified separator.
         /// </summary>
         /// <param name="inputs">Inputs to split.</param>
-        /// <param name="seperator">The seperator to use. Commas are used as a default seperator if not specified.</param>
+        /// <param name="separator">The separator to use. Commas are used as a default separator if not specified.</param>
         /// <returns></returns>
-        public static string[] SplitInputs(this string inputs, params char[] seperator)
+        public static string[] SplitInputs(this string inputs, params char[] separator)
         {
-            if (seperator.Length == 0)
+            if (separator.Length == 0)
             {
-                seperator = new char[] { ',' };
+                separator = new char[] { ',' };
             }
 
-            return inputs.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
+            return inputs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
         }
 
         /// <summary>
-        /// Split inputs by an specified seperator.
+        /// Split inputs by an specified separator.
         /// </summary>
         /// <param name="inputs">Inputs to split.</param>
-        /// <param name="keepSeperator">Include the sperator in the returned result.</param>
-        /// <param name="seperator">The seperator to use. Commas are used as a default seperator if not specified.</param>
+        /// <param name="keepSeparator">Include the separator in the returned result.</param>
+        /// <param name="separator">The separator to use. Commas are used as a default separator if not specified.</param>
         /// <returns></returns>
-        public static IEnumerable<string[]> SplitInputs(this IEnumerable<string> inputs, bool keepSeperator, params char[] seperator)
+        public static IEnumerable<string[]> SplitInputs(this IEnumerable<string> inputs, bool keepSeparator, params char[] separator)
         {
-            if (seperator.Length == 0)
+            if (separator.Length == 0)
             {
-                seperator = new char[] { ',' };
+                separator = new char[] { ',' };
             }
 
             foreach (var s in inputs)
             {
-                if (keepSeperator)
+                if (keepSeparator)
                 {
-                    yield return Regex.Split(s, $@"(?<=[{string.Concat(seperator)}])");
+                    yield return Regex.Split(s, $@"({string.Concat(separator)})");
                 }
                 else
                 {
-                    yield return s.Split(seperator, StringSplitOptions.RemoveEmptyEntries);
+                    yield return s.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                 }
             }
         }
