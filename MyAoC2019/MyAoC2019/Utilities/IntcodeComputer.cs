@@ -168,14 +168,5 @@ namespace MyAoC2019.Utilities
         {
             return a * b;
         }
-        private IEnumerable<int> LoadInitialOpcodeFromFile(string path)
-        {
-            var opcodeStrings = File.ReadAllText(path).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var s in opcodeStrings)
-            {
-                yield return Convert.ToInt32(s);
-            }
-        }
     }
 }
