@@ -21,7 +21,7 @@ namespace MyAoC2019
 
             Console.WriteLine($"Starting part {args[1]} of day {args[0]}.");
 
-            var solutionForDay = Assembly.GetCallingAssembly().CreateInstance($"MyAdventOfCode2015.Solutions.Day{args[0]}.Day{args[0]}") as DayBase;
+            var solutionForDay = Assembly.GetCallingAssembly().CreateInstance($"MyAoC2019.Solutions.Day{args[0]}.Day{args[0]}") as DayBase;
 
             if (solutionForDay == null)
             {
@@ -37,7 +37,7 @@ namespace MyAoC2019
         {
             Console.WriteLine("You didn't pass the day and puzzle arguments to the program. What day do you want to run?");
             yield return Console.ReadLine();
-            Console.WriteLine("What puzzle for the day?");
+            Console.WriteLine("Which part of the day, 1 or 2?");
             yield return Console.ReadLine();
         }
     }
