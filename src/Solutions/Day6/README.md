@@ -38,29 +38,25 @@ Whenever `A` orbits `B` and `B` orbits `C`, then `A` **indirectly orbits** `C`. 
 
 For example, suppose you have the following map:
 
-``
-COM)B
-B)C
-C)D
-D)E
-E)F
-B)G
-G)H
-D)I
-E)J
-J)K
-K)L
-``
+       COM)B
+       B)C
+       C)D
+       D)E
+       E)F
+       B)G
+       G)H
+       D)I
+       E)J
+       J)K
+       K)L
 
 Visually, the above map of orbits looks like this:
 
-``
-        G - H       J - K - L
-       /           /
-COM - B - C - D - E - F
-               \
-                I
-``
+               G - H       J - K - L
+              /           /
+       COM - B - C - D - E - F
+                      \
+                       I
 
 In this visual representation, when two objects are connected by a line, the one on the right directly orbits the one on the left.
 
@@ -84,31 +80,29 @@ You start at the object `YOU` are orbiting; your destination is the object `SAN`
 
 For example, suppose you have the following map:
 
-``
-COM)B
-B)C
-C)D
-D)E
-E)F
-B)G
-G)H
-D)I
-E)J
-J)K
-K)L
-K)YOU
-I)SAN
-``
+       COM)B
+       B)C
+       C)D
+       D)E
+       E)F
+       B)G
+       G)H
+       D)I
+       E)J
+       J)K
+       K)L
+       K)YOU
+       I)SAN
 
 Visually, the above map of orbits looks like this:
 
-                              `YOU`
+                              YOU
                              /
-            G - H       `J` - `K` - L
+            G - H       J - K - L
            /           /
-    COM - B - C - `D` - E - F
+    COM - B - C - D - E - F
                    \
-                    `I` - `SAN`
+                    I - SAN
 
 In this example, `YOU` are in orbit around `K`, and `SAN` is in orbit around `I`. To move from `K` to `I`, a minimum of `4` orbital transfers are required:
 
@@ -125,7 +119,7 @@ Afterward, the map of orbits looks like this:
                    \
                     I - SAN
                      \
-                      `YOU`
+                      YOU
 
 **What is the minimum number of orbital transfers required** to move from the object `YOU` are orbiting to the object `SAN` is orbiting? (Between the objects they are orbiting - **not** between `YOU` and `SAN`.)
 
