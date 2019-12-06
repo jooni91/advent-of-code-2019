@@ -28,14 +28,32 @@ namespace MyAoC2019.Solutions.Day1
         }
         protected override string PartTwo(string input)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Welcome to the fuel calculator EXTENDED edition!");
+            Console.WriteLine("If you want to enter manual mode, type 'y' and press enter. By just pressing enter you will enter the " +
+                "automatic mode where you can import masses from the web or a file.");
+
+            var calculatorMode = Console.ReadLine();
+
+            if (calculatorMode == "y")
+            {
+                return ConsoleManualLoop().ToString();
+            }
+            else
+            {
+                return ConsoleAutomaticLoop(input, true).Sum().ToString();
+            }
         }
 
-        private IEnumerable<int> ConsoleAutomaticLoop(string input)
+        private IEnumerable<int> ConsoleAutomaticLoop(string input, bool calclateFuelForFuel = false)
         {
             foreach (var mass in input.ReadInputLines())
             {
                 var requiredFuel = CalculateRequiredFuel(Convert.ToInt32(mass));
+
+                if (calclateFuelForFuel)
+                {
+                    requiredFuel += CalculateRequiredFuelForFuel(requiredFuel);
+                }
 
                 yield return requiredFuel;
             }
@@ -63,6 +81,27 @@ namespace MyAoC2019.Solutions.Day1
         private int CalculateRequiredFuel(int mass)
         {
             return (mass / 3) - 2;
+        }
+        private int CalculateRequiredFuelForFuel(int fuel)
+        {
+            int fuelRequired = 0;
+
+            while (fuel > 0)
+            {
+                var fuelOfFuel = (fuel / 3) - 2;
+
+                if (fuelOfFuel > 0)
+                {
+                    fuelRequired += fuelOfFuel;
+                    fuel = fuelOfFuel;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return fuelRequired;
         }
     }
 }
