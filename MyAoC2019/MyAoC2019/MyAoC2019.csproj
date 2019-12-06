@@ -40,8 +40,6 @@
     <Folder Include="Solutions\Day2\" />
     <Folder Include="Solutions\Day3\" />
     <Folder Include="Solutions\Day4\" />
-    <Folder Include="Solutions\Day5\" />
-    <Folder Include="Solutions\Day6\" />
   </ItemGroup>
 
 </Project>
