@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MyAoC2019.IcComputer;
 using MyAoC2019.Utilities;
@@ -36,7 +35,7 @@ namespace MyAoC2019.Solutions.Day7
                 cpu[i].Pulse += cpu[i == cpu.Count - 1 ? 0 : i + 1].Signal;
             }
 
-            foreach (var combination in GeneratePermutations(phaseModes, null))
+            foreach (var combination in MathExtensions.GeneratePermutations(phaseModes, null))
             {
                 do
                 {
@@ -67,60 +66,6 @@ namespace MyAoC2019.Solutions.Day7
                 }
                 while (!cpu.All(thread => thread.State == IntcodeThreadState.Halt));
             }
-        }
-
-        private IList<T[]> GeneratePermutations<T>(T[] objs, long? limit)
-        {
-            var result = new List<T[]>();
-            long n = Factorial(objs.Length);
-            n = (!limit.HasValue || limit.Value > n) ? n : limit.Value;
-
-            for (long k = 0; k < n; k++)
-            {
-                var kperm = GenerateKthPermutation(k, objs);
-                result.Add(kperm);
-            }
-
-            return result;
-        }
-        private T[] GenerateKthPermutation<T>(long k, T[] objs)
-        {
-            var permutedObjs = new T[objs.Length];
-
-            for (int i = 0; i < objs.Length; i++)
-            {
-                permutedObjs[i] = objs[i];
-            }
-            for (int j = 2; j < objs.Length + 1; j++)
-            {
-                k /= j - 1;                      // integer division cuts off the remainder
-                long i1 = k % j;
-                long i2 = j - 1;
-                if (i1 != i2)
-                {
-                    var tmpObj1 = permutedObjs[i1];
-                    var tmpObj2 = permutedObjs[i2];
-                    permutedObjs[i1] = tmpObj2;
-                    permutedObjs[i2] = tmpObj1;
-                }
-            }
-            return permutedObjs;
-        }
-        private long Factorial(int n)
-        {
-            if (n < 0) { throw new Exception("Unaccepted input for factorial"); }    //error result - undefined
-            if (n > 256) { throw new Exception("Input too big for factorial"); }  //error result - input is too big
-
-            if (n == 0) { return 1; }
-
-            // Calculate the factorial iteratively rather than recursively:
-
-            long tempResult = 1;
-            for (int i = 1; i <= n; i++)
-            {
-                tempResult *= i;
-            }
-            return tempResult;
         }
     }
 }
