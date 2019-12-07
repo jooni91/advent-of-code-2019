@@ -12,7 +12,7 @@ namespace MyAoC2019.Solutions.Day2
 
         protected override string PartOne(string input)
         {
-            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray());
+            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray(), true);
 
             if (UnitTestMode)
             {
@@ -88,7 +88,7 @@ namespace MyAoC2019.Solutions.Day2
         }
         private string GetNounAndVerbOfOutput(int output, string input)
         {
-            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray());
+            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray(), true);
 
             for (int i = 0; i < 100; i++)
             {

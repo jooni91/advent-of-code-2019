@@ -1,18 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
+using MyAoC2019.IcComputer;
 
 namespace MyAoC2019.Utilities
 {
     public class IntcodeComputer
     {
+        private readonly bool _debugMode = false;
         private readonly int[] _initialOpcode;
         private int[] _opcode;
+        private int _lastInstructionPoint = 0;
+
+        public event EventHandler<string>? Pulse;
 
         public IntcodeComputer(int[] initialOpcode)
         {
+            _initialOpcode = initialOpcode;
+            _initialOpcode.CopyTo(_opcode = new int[_initialOpcode.Length], 0);
+        }
+        public IntcodeComputer(int[] initialOpcode, bool debugMode)
+        {
+            _debugMode = debugMode;
             _initialOpcode = initialOpcode;
             _initialOpcode.CopyTo(_opcode = new int[_initialOpcode.Length], 0);
         }
@@ -27,24 +37,20 @@ namespace MyAoC2019.Utilities
         /// All list that contains all the outputs from the program that was running.
         /// </summary>
         public List<int> Outputs { get; private set; } = new List<int>();
-
-        /// <summary>
-        /// The current state of the computer.
-        /// </summary>
-        public bool ProgramRunning { get; private set; } = false;
+        public IntcodeThreadState State { get; private set; } = IntcodeThreadState.Halt;
 
         /// <summary>
         /// Start running the program.
         /// </summary>
-        public void RunProgram(string? args = null)
+        public void RunProgram(params string[] args)
         {
-            ProgramRunning = true;
+            State = IntcodeThreadState.Running;
 
-            Console.WriteLine($"Starting program!");
-
+            int argsIndex = 0;
             int skipCount = 4;
+            bool sendSignalOnExit = false;
 
-            for (int i = 0; i < _opcode.Length; i += skipCount)
+            for (int i = _lastInstructionPoint; i < _opcode.Length; i += skipCount)
             {
                 switch (GetOpcode(this[i]))
                 {
@@ -57,13 +63,17 @@ namespace MyAoC2019.Utilities
                         skipCount = 4;
                         break;
                     case "03":
-                        Console.WriteLine("Input value:");
-                        this[this[i + 1]] = Convert.ToInt32(args ?? Console.ReadLine());
+                        if (GetInput(args.Length >= argsIndex + 1 ? args[argsIndex] : null, out int? input))
+                        {
+                            this[this[i + 1]] = (int)input;
+                        }
                         skipCount = 2;
+                        argsIndex++;
                         break;
                     case "04":
                         Outputs.Add(GetValue(i + 1, GetMode(this[i], 1)));
                         Console.WriteLine(Outputs.Last());
+                        sendSignalOnExit = true;
                         skipCount = 2;
                         break;
                     case "05":
@@ -91,7 +101,7 @@ namespace MyAoC2019.Utilities
                         skipCount = 4;
                         break;
                     case "99":
-                        ProgramRunning = false;
+                        State = IntcodeThreadState.Halt;
                         break;
                     default:
                         Console.WriteLine($"Encountered unknown opcode: {this[i]}");
@@ -99,13 +109,18 @@ namespace MyAoC2019.Utilities
                         break;
                 }
 
-                if (!ProgramRunning)
+                if (State != IntcodeThreadState.Running)
                 {
+                    _lastInstructionPoint = i;
+
+                    if (sendSignalOnExit)
+                    {
+                        Pulse?.Invoke(this, Outputs.Last().ToString());
+                    }
+
                     break;
                 }
             }
-
-            Console.WriteLine($"Finnished running the program.");
         }
         /// <summary>
         /// Resets the program to it's initial state.
@@ -114,6 +129,19 @@ namespace MyAoC2019.Utilities
         {
             _initialOpcode.CopyTo(_opcode, 0);
             Outputs = new List<int>();
+            _lastInstructionPoint = 0;
+        }
+
+        /// <summary>
+        /// Signal the thread waiting for input
+        /// </summary>
+        /// <param name="args">The input that this thread is waiting for.</param>
+        public void Signal(object? sender, string args)
+        {
+            if (State == IntcodeThreadState.Wait)
+            {
+                RunProgram(args);
+            }
         }
 
         private string GetOpcode(int value)
@@ -138,16 +166,9 @@ namespace MyAoC2019.Utilities
 
             return returnValue;
         }
-        private int GetValue(int index, int mode)
+        private int GetValue(int pointer, int mode)
         {
-            if (mode == 0)
-            {
-                return this[this[index]];
-            }
-            else
-            {
-                return this[index];
-            }
+            return mode == 0 ? this[this[pointer]] : this[pointer];
         }
         private int GetMode(int value, int index)
         {
@@ -164,6 +185,29 @@ namespace MyAoC2019.Utilities
             }
 
             return valueString[valueString.Length - 2 - index].ToString() == "0" ? 0 : 1;
+        }
+        private bool GetInput(string? args, [NotNullWhen(true)] out int? input)
+        {
+            if (_debugMode && string.IsNullOrEmpty(args))
+            {
+                Console.WriteLine("Input value:");
+                input = Convert.ToInt32(Console.ReadLine());
+                return true;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(args))
+                {
+                    State = IntcodeThreadState.Wait;
+                    input = null;
+                    return false;
+                }
+                else
+                {
+                    input = Convert.ToInt32(args);
+                    return true;
+                }
+            }
         }
         private int Add(int a, int b)
         {

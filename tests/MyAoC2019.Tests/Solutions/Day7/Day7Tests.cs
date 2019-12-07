@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
 namespace MyAoC2019.Tests.Solutions.Day7
 {
@@ -11,26 +8,26 @@ namespace MyAoC2019.Tests.Solutions.Day7
         public void PartOne_ShouldReturn_ExpectedValue()
         {
             // Arrange
-
+            var daySolution = new MyAoC2019.Solutions.Day7.Day7();
 
             // Act
-
+            var result = daySolution.GetResult(Part.One);
 
             // Assert
-
+            Assert.Equal("17406", result);
         }
 
         [Fact]
         public void PartTwo_ShouldReturn_ExpectedValue()
         {
             // Arrange
-
+            var daySolution = new MyAoC2019.Solutions.Day7.Day7();
 
             // Act
-
+            var result = daySolution.GetResult(Part.Two);
 
             // Assert
-
+            Assert.Equal("1047153", result);
         }
     }
 }
