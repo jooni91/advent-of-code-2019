@@ -5,6 +5,8 @@ Don't go further if you have not solved the puzzles yet, but intent to solve the
 This repo contains my solutions for the [Advent of Code 2019](https://adventofcode.com/) challenges. I will try to document my thoughts and steps on how I solved each puzzle as much as I can.
 I will use mainly C# and my goal is to train myself in using all the new features of the language and strengthen my knowledge and usage of best practices in the language and .NET in general.
 
+[![Build Status](https://dev.azure.com/griesingersoftware/Advent%20of%20Code%202019/_apis/build/status/jooni91.advent-of-code-2019?branchName=master)](https://dev.azure.com/griesingersoftware/Advent%20of%20Code%202019/_build/latest?definitionId=15&branchName=master)
+
 Links to solution for each day:
 
 [Day 1](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day1)
