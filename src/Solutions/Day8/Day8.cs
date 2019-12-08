@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using MyAoC2019.Utilities;
 
@@ -19,7 +22,7 @@ namespace MyAoC2019.Solutions.Day8
         {
             var decodedImage = DecodeImage(25, 6, GetImageLayers(25, 6, input.ConvertInputsToIntegers().ToArray()).ToArray());
 
-
+            GenerateBWImage(decodedImage);
 
             // The code below is not related to the assignment, but it just used to output the sum
             // of all values in the decoded image. This can then be used for unit test purposes for example.
@@ -125,6 +128,57 @@ namespace MyAoC2019.Solutions.Day8
             }
 
             return image;
+        }
+
+
+        private void GenerateBWImage(int[,] pixelMap)
+        {
+            Console.WriteLine("Do you want to generate a PNG of the decoded image? Type 'Y' and press enter for yes.");
+
+            if (Console.ReadLine().ToUpper() != "Y")
+            {
+                return;
+            }
+
+            Console.WriteLine("Enter the full (absolute) path where the generated image should be saved to: ");
+            var path = Console.ReadLine();
+
+            // We will make the dimensions of the image 10x bigger
+            var width = pixelMap.GetLength(1) * 10;
+            var height = pixelMap.GetLength(0) * 10;
+
+            // Add a margin of 10 pixels to each side of the image
+            var bitmap = new Bitmap(width + 20, height + 20);
+
+            // Draw the black border
+            for (int i = 0; i < height; i++)
+            {
+                for (int k = 0; k < width; k++)
+                {
+                    if ((i < 10 || i > height - 11) && (k < 10 || i > width - 11))
+                    {
+                        bitmap.SetPixel(k, i, Color.Black);
+                    }
+                }
+            }
+
+            // Draw the pixelMap
+            for (int i = 0; i < height; i++)
+            {
+                for (int k = 0; k < width; k++)
+                {
+                    var color = pixelMap[i / 10, k / 10] == 0 ? Color.Black : Color.White;
+
+                    // Add 10, because of the extra space for the boarder on each side
+                    bitmap.SetPixel(k + 10, i + 10, color);
+                }
+            }
+
+            using var fs = new FileStream(Path.Combine(path, "AoC2019_Day8_generated.png"), FileMode.Create);
+
+            bitmap.Save(fs, ImageCodecInfo.GetImageEncoders().First(encoder => encoder.MimeType == "image/jpeg"), null);
+
+            Console.WriteLine("The image generation was successful!");
         }
     }
 }
