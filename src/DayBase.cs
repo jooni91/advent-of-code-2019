@@ -6,6 +6,8 @@ namespace MyAoC2019
     {
         protected abstract int Day { get; }
 
+        public bool UnitTestMode { get; set; } = false;
+
         public string GetResult(Part part)
         {
             return part == Part.One

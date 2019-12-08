@@ -6,8 +6,6 @@ namespace MyAoC2019.Solutions.Day5
 {
     public class Day5 : DayBase
     {
-        public bool UnitTestMode { get; set; } = false;
-
         protected override int Day => 5;
 
         protected override string PartOne(string input)

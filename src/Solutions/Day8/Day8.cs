@@ -22,7 +22,10 @@ namespace MyAoC2019.Solutions.Day8
         {
             var decodedImage = DecodeImage(25, 6, GetImageLayers(25, 6, input.ConvertInputsToIntegers().ToArray()).ToArray());
 
-            GenerateBWImage(decodedImage);
+            if (!UnitTestMode)
+            {
+                GenerateBWImage(decodedImage);
+            }
 
             // The code below is not related to the assignment, but it just used to output the sum
             // of all values in the decoded image. This can then be used for unit test purposes for example.

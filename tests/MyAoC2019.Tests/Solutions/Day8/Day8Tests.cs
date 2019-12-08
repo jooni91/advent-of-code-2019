@@ -21,7 +21,10 @@ namespace MyAoC2019.Tests.Solutions.Day8
         public void PartTwo_ShouldReturn_ExpectedValue()
         {
             // Arrange
-            var daySolution = new MyAoC2019.Solutions.Day8.Day8();
+            var daySolution = new MyAoC2019.Solutions.Day8.Day8
+            {
+                UnitTestMode = true
+            };
 
             // Act
             var result = daySolution.GetResult(Part.Two);
