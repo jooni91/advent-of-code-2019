@@ -62,16 +62,15 @@ For example, given an image `2` pixels wide and `2` pixels tall, the image data 
 
 Then, the full image can be found by determining the top visible pixel in each position:
 
-    The top-left pixel is **black** because the top layer is `0`.
-    The top-right pixel is **white** because the top layer is `2` (transparent), but the second layer is `1`.
-    The bottom-left pixel is **white** because the top two layers are `2`, but the third layer is `1`.
-    The bottom-right pixel is **black** because the only visible pixel in that position is `0` (from layer 4).
+- The top-left pixel is **black** because the top layer is `0`.
+- The top-right pixel is **white** because the top layer is `2` (transparent), but the second layer is `1`.
+- The bottom-left pixel is **white** because the top two layers are `2`, but the third layer is `1`.
+- The bottom-right pixel is **black** because the only visible pixel in that position is `0` (from layer 4).
 
 So, the final image looks like this:
 
-``01
-
-10``
+    01
+    10
 
 **What message is produced after decoding your image?**
 
@@ -81,8 +80,9 @@ Your puzzle answer was `CFCUG`.
 ## Images
 #### Manually typing result into Excel
 
-![Manual typed result](https://github.com/jooni91/advent-of-code-2019/tree/master/images/AoC2019_Day8.png)
+![Manual typed result](../../../images/AoC2019_Day8.png)
+
 
 #### Automatically generated image
 
-![Manual typed result](https://github.com/jooni91/advent-of-code-2019/tree/master/images/AoC2019_Day8_generated.png)
+![Automatically generated](../../../images/AoC2019_Day8_generated.png)
