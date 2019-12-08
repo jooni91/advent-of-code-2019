@@ -1,10 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Xunit;
 
 namespace MyAoC2019.Tests.Solutions.Day8
 {
     public class Day8Tests
     {
+        [Fact]
+        public void PartOne_ShouldReturn_ExpectedValue()
+        {
+            // Arrange
+            var daySolution = new MyAoC2019.Solutions.Day8.Day8();
+
+            // Act
+            var result = daySolution.GetResult(Part.One);
+
+            // Assert
+            Assert.Equal("2032", result);
+        }
+
+        [Fact]
+        public void PartTwo_ShouldReturn_ExpectedValue()
+        {
+            // Arrange
+            var daySolution = new MyAoC2019.Solutions.Day8.Day8();
+
+            // Act
+            var result = daySolution.GetResult(Part.Two);
+
+            // Assert
+            Assert.Equal("56", result);
+        }
     }
 }

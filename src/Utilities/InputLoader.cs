@@ -67,11 +67,41 @@ namespace MyAoC2019.Utilities
         }
 
         /// <summary>
-        /// Converts an array of strings to numbers.
+        /// Converts a string to an int array.
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> ConvertInputsToIntegers(this string inputs)
+        {
+            foreach (var s in inputs)
+            {
+                yield return Convert.ToInt32(s.ToString());
+            }
+
+            Console.WriteLine("Converted inputs to integer values.");
+        }
+
+        /// <summary>
+        /// Converts an array of strings to an int array.
         /// </summary>
         /// <param name="inputs"></param>
         /// <returns></returns>
         public static IEnumerable<int> ConvertInputsToIntegers(this string[] inputs)
+        {
+            foreach (var s in inputs)
+            {
+                yield return Convert.ToInt32(s);
+            }
+
+            Console.WriteLine("Converted inputs to integer values.");
+        }
+
+        /// <summary>
+        /// Converts an array of chars to an int array.
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> ConvertInputsToIntegers(this char[] inputs)
         {
             foreach (var s in inputs)
             {
