@@ -85,4 +85,4 @@ Your puzzle answer was `CFCUG`.
 
 #### Automatically generated image
 
-![Manual typed result](https://github.com/jooni91/advent-of-code-2019/tree/master/images/AoC2019_Day8.png)
+![Manual typed result](https://github.com/jooni91/advent-of-code-2019/tree/master/images/AoC2019_Day8_generated.png)
