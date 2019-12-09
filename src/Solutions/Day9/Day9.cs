@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using MyAoC2019.Utilities;
 
 namespace MyAoC2019.Solutions.Day9

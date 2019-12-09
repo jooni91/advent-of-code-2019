@@ -4,30 +4,36 @@ namespace MyAoC2019.Tests.Solutions.Day9
 {
     public class Day9Tests
     {
-        //[Fact]
-        //public void PartOne_ShouldReturn_ExpectedValue()
-        //{
-        //    // Arrange
-        //    var daySolution = new MyAoC2019.Solutions.Day9.Day9();
+        [Fact]
+        public void PartOne_ShouldReturn_ExpectedValue()
+        {
+            // Arrange
+            var daySolution = new MyAoC2019.Solutions.Day9.Day9
+            {
+                UnitTestMode = true
+            };
 
-        //    // Act
-        //    var result = daySolution.GetResult(Part.One);
+            // Act
+            var result = daySolution.GetResult(Part.One);
 
-        //    // Assert
-        //    Assert.Equal("2032", result);
-        //}
+            // Assert
+            Assert.Equal("4288078517", result);
+        }
 
-        //[Fact]
-        //public void PartTwo_ShouldReturn_ExpectedValue()
-        //{
-        //    // Arrange
-        //    var daySolution = new MyAoC2019.Solutions.Day9.Day9();
+        [Fact]
+        public void PartTwo_ShouldReturn_ExpectedValue()
+        {
+            // Arrange
+            var daySolution = new MyAoC2019.Solutions.Day9.Day9
+            {
+                UnitTestMode = true
+            };
 
-        //    // Act
-        //    var result = daySolution.GetResult(Part.Two);
+            // Act
+            var result = daySolution.GetResult(Part.Two);
 
-        //    // Assert
-        //    Assert.Equal("56", result);
-        //}
+            // Assert
+            Assert.Equal("69256", result);
+        }
     }
 }
