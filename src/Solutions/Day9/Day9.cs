@@ -20,7 +20,10 @@ namespace MyAoC2019.Solutions.Day9
 
         protected override string PartTwo(string input)
         {
-            throw new NotImplementedException();
+            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray(), true);
+            computer.RunProgram(UnitTestMode ? new string[] { "2" } : Array.Empty<string>());
+
+            return computer.Outputs.Last().ToString();
         }
     }
 }

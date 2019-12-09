@@ -30,8 +30,19 @@ namespace MyAoC2019.Utilities
 
         public long this[long index]
         {
-            get { return _opcode[index]; }
-            set { _opcode[index] = value; }
+            get 
+            { 
+                return _opcode[index]; 
+            }
+            set 
+            { 
+                if (index < 0)
+                {
+                    return;
+                }
+
+                _opcode[index] = value; 
+            }
         }
 
         /// <summary>
@@ -56,53 +67,59 @@ namespace MyAoC2019.Utilities
                 switch (GetOpcode(this[i]))
                 {
                     case "01":
-                        this[GetValue(i + 3, 1)] = Add(GetValue(i + 1, GetMode(this[i], 1)), GetValue(i + 2, GetMode(this[i], 2)));
+                        this[GetValue(i + 3, GetMode(this[i], 3), MemoryOperationMode.Write)] = 
+                            Add(GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read), 
+                            GetValue(i + 2, GetMode(this[i], 2), MemoryOperationMode.Read));
                         skipCount = 4;
                         break;
                     case "02":
-                        this[GetValue(i + 3, 1)] = Multiply(GetValue(i + 1, GetMode(this[i], 1)), GetValue(i + 2, GetMode(this[i], 2)));
+                        this[GetValue(i + 3, GetMode(this[i], 3), MemoryOperationMode.Write)] = 
+                            Multiply(GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read), 
+                            GetValue(i + 2, GetMode(this[i], 2), MemoryOperationMode.Read));
                         skipCount = 4;
                         break;
                     case "03":
                         if (GetInput(args.Length >= argsIndex + 1 ? args[argsIndex] : null, out int? input))
                         {
-                            this[this[i + 1]] = (long)input;
+                            this[GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Write)] = (long)input;
                         }
                         skipCount = 2;
                         argsIndex++;
                         break;
                     case "04":
-                        Outputs.Add(GetValue(i + 1, GetMode(this[i], 1)));
+                        Outputs.Add(GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read));
                         Console.WriteLine(Outputs.Last());
                         sendSignalOnExit = true;
                         skipCount = 2;
                         break;
                     case "05":
-                        if (GetValue(i + 1, GetMode(this[i], 1)) != 0)
+                        if (GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read) != 0)
                         {
-                            i = (int)GetValue(i + 2, GetMode(this[i], 2)) - skipCount;
+                            i = (int)GetValue(i + 2, GetMode(this[i], 2), MemoryOperationMode.Read) - skipCount;
                             break;
                         }
                         skipCount = 3;
                         break;
                     case "06":
-                        if (GetValue(i + 1, GetMode(this[i], 1)) == 0)
+                        if (GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read) == 0)
                         {
-                            i = (int)GetValue(i + 2, GetMode(this[i], 2)) - skipCount;
+                            i = (int)GetValue(i + 2, GetMode(this[i], 2), MemoryOperationMode.Read) - skipCount;
                             break;
                         }
                         skipCount = 3;
                         break;
                     case "07":
-                        this[GetValue(i + 3, 1)] = GetValue(i + 1, GetMode(this[i], 1)) < GetValue(i + 2, GetMode(this[i], 2)) ? 1 : 0;
+                        this[GetValue(i + 3, GetMode(this[i], 3), MemoryOperationMode.Write)] = 
+                            GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read) < GetValue(i + 2, GetMode(this[i], 2), MemoryOperationMode.Read) ? 1 : 0;
                         skipCount = 4;
                         break;
                     case "08":
-                        this[GetValue(i + 3, 1)] = GetValue(i + 1, GetMode(this[i], 1)) == GetValue(i + 2, GetMode(this[i], 2)) ? 1 : 0;
+                        this[GetValue(i + 3, GetMode(this[i], 3), MemoryOperationMode.Write)] = 
+                            GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read) == GetValue(i + 2, GetMode(this[i], 2), MemoryOperationMode.Read) ? 1 : 0;
                         skipCount = 4;
                         break;
                     case "09":
-                        _relativeOffset += (int)GetValue(i + 1, GetMode(this[i], 1));
+                        _relativeOffset += (int)GetValue(i + 1, GetMode(this[i], 1), MemoryOperationMode.Read);
                         skipCount = 2;
                         break;
                     case "99":
@@ -172,28 +189,37 @@ namespace MyAoC2019.Utilities
 
             return returnValue;
         }
-        private long GetValue(long pointer, int mode)
+        private long GetValue(int pointer, int mode, MemoryOperationMode memoryOperationMode)
         {
-            if (mode == 0)
+            if (memoryOperationMode == MemoryOperationMode.Read)
             {
-                return this[this[pointer]];
-            }
-            else if (mode == 1)
-            {
-                return this[pointer];
+                if (mode == 0)
+                {
+                    return this[this[pointer]];
+                }
+                else if (mode == 1)
+                {
+                    return this[pointer];
+                }
+                else
+                {
+                    return this[_relativeOffset + this[pointer]];
+                }
             }
             else
             {
-                return this[this[_relativeOffset + pointer]];
+                if (mode == 2)
+                {
+                    return _relativeOffset + this[pointer];
+                }
+                else
+                {
+                    return this[pointer];
+                }
             }
         }
         private int GetMode(long value, int index)
         {
-            if (index == 3)
-            {
-                return 0;
-            }
-
             var valueString = value.ToString();
 
             if (valueString.Length < 2 + index)
