@@ -1,5 +1,5 @@
 # Day 8: Space Image Format
-Today we built an image decoder, a very simple one of course. First you check that your data isn't corrupted and then you start decoding. In the deconding part for today I toke 2 approaches to create the actuall image after decoding magic was done. First I just read the values from the array of valus and manually typed in all the black pixels into a grid canvas in Excel that I created. The second approache was the better and automatic one. I draw the image in code and saved the bitmap as image to an file. I included images of both approaches on the bottom of this readme.
+Today we built an image decoder, a very simple one of course. First you check that your data isn't corrupted and then you start decoding. In the deconding part for today I toke 2 approaches to create the actuall image after decoding magic was done. First I just read the values from the array of valus and manually typed in all the black pixels into a grid canvas in Excel that I created. The second approache was the better and automatic one. I draw the (image[https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day8#images]) in code and saved the bitmap as image to an file. I included images of both approaches on the bottom of this readme.
 
 ### Personal Stats for the Day
 **Part 1**

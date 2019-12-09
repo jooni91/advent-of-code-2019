@@ -9,18 +9,52 @@ I will use mainly C# and my goal is to train myself in using all the new feature
 
 Links to solution for each day:
 
-[Day 1](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day1)
+[Day 1: The Tyranny of the Rocket Equation](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day1)
 
-[Day 2](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day2)
+[Day 2: 1202 Program Alarm](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day2)
 
-[Day 3](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day3)
+[Day 3: Crossed Wires](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day3)
 
-[Day 4](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day4)
+[Day 4: Secure Container](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day4)
 
-[Day 5](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day5)
+[Day 5: Sunny with a Chance of Asteroids](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day5)
 
-[Day 6](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day6)
+[Day 6: Universal Orbit Map](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day6)
 
-[Day 7](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day7)
+[Day 7: Amplification Circuit](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day7)
 
-[Day 8](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day8)
+[Day 8: Space Image Format](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day8)
+
+[Day 9: Sensor Boost](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day9)
+
+[Day 10](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day10)
+
+[Day 11](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day11)
+
+[Day 12](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day12)
+
+[Day 13](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day13)
+
+[Day 14](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day14)
+
+[Day 15](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day15)
+
+[Day 16](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day16)
+
+[Day 17](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day17)
+
+[Day 18](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day18)
+
+[Day 19](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day19)
+
+[Day 20](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day20)
+
+[Day 21](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day21)
+
+[Day 22](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day22)
+
+[Day 23](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day23)
+
+[Day 24](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day24)
+
+[Day 25](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day25)
