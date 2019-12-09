@@ -47,7 +47,7 @@ namespace MyAoC2019.Solutions.Day7
 
                     if (!feedbackLoopMode)
                     {
-                        yield return cpu[4].Outputs.Last();
+                        yield return (int)cpu[4].Outputs.Last();
 
                         foreach (var thread in cpu)
                         {
@@ -56,7 +56,7 @@ namespace MyAoC2019.Solutions.Day7
                     }
                     else if (cpu.All(thread => thread.State == IntcodeThreadState.Halt))
                     {
-                        yield return cpu[4].Outputs.Last();
+                        yield return (int)cpu[4].Outputs.Last();
 
                         foreach (var thread in cpu)
                         {
