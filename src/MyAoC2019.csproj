@@ -8,43 +8,67 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="InputFiles\Day1.txt" />
-    <None Remove="InputFiles\Day2.txt" />
-    <None Remove="InputFiles\Day3.txt" />
-    <None Remove="InputFiles\Day4.txt" />
-    <None Remove="InputFiles\Day5.txt" />
-    <None Remove="InputFiles\Day6.txt" />
-    <None Remove="InputFiles\Day7.txt" />
-    <None Remove="InputFiles\Day8.txt" />
-    <None Remove="InputFiles\Day9.txt" />
+    <None Remove="InputFiles\Day01.txt" />
+    <None Remove="InputFiles\Day02.txt" />
+    <None Remove="InputFiles\Day03.txt" />
+    <None Remove="InputFiles\Day04.txt" />
+    <None Remove="InputFiles\Day05.txt" />
+    <None Remove="InputFiles\Day06.txt" />
+    <None Remove="InputFiles\Day07.txt" />
+    <None Remove="InputFiles\Day08.txt" />
+    <None Remove="InputFiles\Day09.txt" />
+    <None Remove="InputFiles\Day10.txt" />
+    <None Remove="InputFiles\Day11.txt" />
+    <None Remove="InputFiles\Day12.txt" />
+    <None Remove="InputFiles\Day13.txt" />
+    <None Remove="InputFiles\Day14.txt" />
+    <None Remove="InputFiles\Day15.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="InputFiles\Day1.txt">
+    <EmbeddedResource Include="InputFiles\Day01.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day2.txt">
+    <EmbeddedResource Include="InputFiles\Day15.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day3.txt">
+    <EmbeddedResource Include="InputFiles\Day14.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day4.txt">
+    <EmbeddedResource Include="InputFiles\Day13.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day5.txt">
+    <EmbeddedResource Include="InputFiles\Day11.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day6.txt">
+    <EmbeddedResource Include="InputFiles\Day12.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day7.txt">
+    <EmbeddedResource Include="InputFiles\Day10.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day8.txt">
+    <EmbeddedResource Include="InputFiles\Day02.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputFiles\Day9.txt">
+    <EmbeddedResource Include="InputFiles\Day03.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day04.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day05.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day06.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day07.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day08.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\Day09.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

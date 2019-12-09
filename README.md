@@ -9,23 +9,23 @@ I will use mainly C# and my goal is to train myself in using all the new feature
 
 Links to solution for each day:
 
-[Day 1: The Tyranny of the Rocket Equation](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day1)
+[Day 1: The Tyranny of the Rocket Equation](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day01)
 
-[Day 2: 1202 Program Alarm](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day2)
+[Day 2: 1202 Program Alarm](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day02)
 
-[Day 3: Crossed Wires](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day3)
+[Day 3: Crossed Wires](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day03)
 
-[Day 4: Secure Container](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day4)
+[Day 4: Secure Container](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day04)
 
-[Day 5: Sunny with a Chance of Asteroids](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day5)
+[Day 5: Sunny with a Chance of Asteroids](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day05)
 
-[Day 6: Universal Orbit Map](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day6)
+[Day 6: Universal Orbit Map](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day06)
 
-[Day 7: Amplification Circuit](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day7)
+[Day 7: Amplification Circuit](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day07)
 
-[Day 8: Space Image Format](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day8)
+[Day 8: Space Image Format](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day08)
 
-[Day 9: Sensor Boost](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day9)
+[Day 9: Sensor Boost](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day09)
 
 [Day 10](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day10)
 

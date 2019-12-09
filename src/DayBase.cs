@@ -4,7 +4,7 @@ namespace MyAoC2019
 {
     public abstract class DayBase
     {
-        protected abstract int Day { get; }
+        protected abstract string Day { get; }
 
         public bool UnitTestMode { get; set; } = false;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using MyAoC2019.IcComputer;
+using MyAoC2019.Computer;
 
 namespace MyAoC2019.Utilities
 {
