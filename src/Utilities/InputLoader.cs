@@ -97,6 +97,21 @@ namespace MyAoC2019.Utilities
         }
 
         /// <summary>
+        /// Converts an array of strings to an int array.
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
+        public static IEnumerable<long> ConvertInputsToLongs(this string[] inputs)
+        {
+            foreach (var s in inputs)
+            {
+                yield return Convert.ToInt64(s);
+            }
+
+            Console.WriteLine("Converted inputs to integer values.");
+        }
+
+        /// <summary>
         /// Converts an array of chars to an int array.
         /// </summary>
         /// <param name="inputs"></param>

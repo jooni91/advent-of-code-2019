@@ -9,19 +9,19 @@ namespace MyAoC2019.Utilities
     public class IntcodeComputer
     {
         private readonly bool _debugMode = false;
-        private readonly int[] _initialOpcode;
+        private readonly long[] _initialOpcode;
         private long[] _opcode;
         private int _lastInstructionPoint = 0;
         private int _relativeOffset = 0;
 
         public event EventHandler<string>? Pulse;
 
-        public IntcodeComputer(int[] initialOpcode)
+        public IntcodeComputer(long[] initialOpcode)
         {
             _initialOpcode = initialOpcode;
             _initialOpcode.CopyTo(_opcode = new long[10000], 0);
         }
-        public IntcodeComputer(int[] initialOpcode, bool debugMode)
+        public IntcodeComputer(long[] initialOpcode, bool debugMode)
         {
             _debugMode = debugMode;
             _initialOpcode = initialOpcode;
@@ -64,7 +64,7 @@ namespace MyAoC2019.Utilities
 
             for (int i = _lastInstructionPoint; i < _opcode.Length; i += skipCount)
             {
-                switch (GetOpcode(this[i]))
+                switch (DecodeOpcode(this[i]))
                 {
                     case "01":
                         this[GetValue(i + 3, GetMode(this[i], 3), MemoryOperationMode.Write)] = 
@@ -167,7 +167,7 @@ namespace MyAoC2019.Utilities
             }
         }
 
-        private string GetOpcode(long value)
+        private string DecodeOpcode(long value)
         {
             var valueString = value.ToString();
             var returnValue = string.Empty;

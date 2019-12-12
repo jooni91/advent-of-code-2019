@@ -10,7 +10,7 @@ namespace MyAoC2019.Solutions.Day09
 
         protected override string PartOne(string input)
         {
-            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray(), true);
+            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToLongs().ToArray(), true);
             computer.RunProgram(UnitTestMode ? new string[] { "1" } : Array.Empty<string>());
 
             return computer.Outputs.Last().ToString();
@@ -18,7 +18,7 @@ namespace MyAoC2019.Solutions.Day09
 
         protected override string PartTwo(string input)
         {
-            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray(), true);
+            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToLongs().ToArray(), true);
             computer.RunProgram(UnitTestMode ? new string[] { "2" } : Array.Empty<string>());
 
             return computer.Outputs.Last().ToString();

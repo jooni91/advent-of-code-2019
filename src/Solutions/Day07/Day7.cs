@@ -20,7 +20,7 @@ namespace MyAoC2019.Solutions.Day07
 
         private IEnumerable<int> RunProgram(string input, int[] phaseModes, bool feedbackLoopMode = false)
         {
-            var opcode = input.SplitInputs().ConvertInputsToIntegers().ToArray();
+            var opcode = input.SplitInputs().ConvertInputsToLongs().ToArray();
             var cpu = new List<IntcodeComputer>
                 {
                     new IntcodeComputer(opcode),

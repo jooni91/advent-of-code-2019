@@ -10,14 +10,14 @@ namespace MyAoC2019.Solutions.Day05
 
         protected override string PartOne(string input)
         {
-            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray(), true);
+            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToLongs().ToArray(), true);
             computer.RunProgram(UnitTestMode ? new string[] { "1" } : Array.Empty<string>());
 
             return computer.Outputs.Last().ToString();
         }
         protected override string PartTwo(string input)
         {
-            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToIntegers().ToArray(), true);
+            var computer = new IntcodeComputer(input.SplitInputs().ConvertInputsToLongs().ToArray(), true);
             computer.RunProgram(UnitTestMode ? new string[] { "5" } : Array.Empty<string>());
 
             return computer.Outputs.Last().ToString();
