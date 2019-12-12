@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using MyAoC2019.Utilities;
 using Xunit;
@@ -60,6 +61,34 @@ namespace MyAoC2019.Tests.Utilities
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => MathExtensions.GeneratePermutations(objects, null));
         }
+
+        [Theory]
+        [ClassData(typeof(GenerateIsPrimeTestData))]
+        public void IsPrime_ShouldReturn_ExpectedValue(int number, bool expected)
+        {
+            // Arrange
+
+
+            // Act
+            var result = MathExtensions.IsPrime(number);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [ClassData(typeof(GenerateManhattenDistanceTestData))]
+        public void ManhattanDistance_ShouldReturn_ExpectedValue(Point pointA, Point pointB, int expected)
+        {
+            // Arrange
+
+
+            // Act
+            var result = MathExtensions.ManhattanDistance(pointA, pointB);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
     }
 
     public class GeneratePermutationsTestData : IEnumerable<object[]>
@@ -82,5 +111,37 @@ namespace MyAoC2019.Tests.Utilities
             return GetEnumerator();
         }
     }
+    public class GenerateIsPrimeTestData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            yield return new object[] { 0, false };
+            yield return new object[] { 1, false };
+            yield return new object[] { 2, true };
+            yield return new object[] { 3, true };
+            yield return new object[] { 4, false };
+            yield return new object[] { 11, true };
+            yield return new object[] { 21, false };
+        }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+    public class GenerateManhattenDistanceTestData : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            yield return new object[] { new Point(0, 0), new Point(4, 4), 8 };
+            yield return new object[] { new Point(2, 1), new Point(3, 6), 6 };
+            yield return new object[] { new Point(-5, 1), new Point(3, -9), 18 };
+            yield return new object[] { new Point(-246, 764), new Point(67, -242), 1319 };
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
 }

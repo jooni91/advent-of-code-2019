@@ -75,14 +75,10 @@ namespace MyAoC2019.Utilities
         {
             return Convert.ToInt32(coord.Substring(1));
         }
-        private int CalculateManhattanDistance(Point pointA, Point pointB)
-        {
-            return Math.Abs(pointA.X - pointB.X) + Math.Abs(pointA.Y - pointB.Y);
-        }
         private int GetClosestDistanceToBase(IEnumerable<Point> coordsA, IEnumerable<Point> coordsB)
         {
             return coordsA.Where(point => coordsB.Contains(point))
-                .Select(point => CalculateManhattanDistance(new Point(0, 0), point))
+                .Select(point => MathExtensions.ManhattanDistance(new Point(0, 0), point))
                 .Min();
         }
     }

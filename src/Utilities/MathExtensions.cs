@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace MyAoC2019.Utilities
 {
@@ -29,6 +30,58 @@ namespace MyAoC2019.Utilities
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Check wheter the given number is a prime number or not.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static bool IsPrime(int number)
+        {
+            if (number == 2)
+            {
+                return true;
+            }
+
+            if (number <= 1 || number % 2 == 0)
+            {
+                return false;
+            }
+
+            var boundary = (int)Math.Floor(Math.Sqrt(number));
+
+            for (int i = 3; i <= boundary; i += 2)
+            {
+                if (number % i == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Calculate the manhatten distance of two points in 2 dimensional space.
+        /// </summary>
+        /// <param name="pointA"></param>
+        /// <param name="pointB"></param>
+        /// <returns></returns>
+        public static int ManhattanDistance((int X, int Y) pointA, (int X, int Y) pointB)
+        {
+            return Math.Abs(pointA.X - pointB.X) + Math.Abs(pointA.Y - pointB.Y);
+        }
+
+        /// <summary>
+        /// Calculate the manhatten distance of two points in 2 dimensional space.
+        /// </summary>
+        /// <param name="pointA"></param>
+        /// <param name="pointB"></param>
+        /// <returns></returns>
+        public static int ManhattanDistance(Point pointA, Point pointB)
+        {
+            return ManhattanDistance((pointA.X, pointA.Y), (pointB.X, pointB.Y));
         }
 
         private static T[] GenerateKthPermutation<T>(long k, T[] objs)
