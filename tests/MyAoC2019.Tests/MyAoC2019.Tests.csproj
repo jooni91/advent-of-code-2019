@@ -10,10 +10,14 @@
 
   <ItemGroup>
     <None Remove="InputFiles\InputLoaderTestFile.txt" />
+    <None Remove="InputFiles\PaintingRobotTestFile.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="InputFiles\InputLoaderTestFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputFiles\PaintingRobotTestFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
