@@ -179,7 +179,7 @@ namespace MyAoC2019.Solutions.Day08
 
             using var fs = new FileStream(Path.Combine(path, "AoC2019_Day8_generated.png"), FileMode.Create);
 
-            bitmap.Save(fs, ImageCodecInfo.GetImageEncoders().First(encoder => encoder.MimeType == "image/jpeg"), null);
+            bitmap.Save(fs, ImageCodecInfo.GetImageEncoders().First(encoder => encoder.MimeType == "image/png"), null);
 
             Console.WriteLine("The image generation was successful!");
         }
