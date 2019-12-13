@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text;
+using System.Threading.Tasks;
+using MyAoC2019.SpaceObjects;
 using MyAoC2019.Utilities;
 
 namespace MyAoC2019.Solutions.Day12
@@ -18,18 +19,23 @@ namespace MyAoC2019.Solutions.Day12
 
         protected override string PartTwo(string input)
         {
-            return StepsNeededUntilRepeat(ParseMoons(input.ReadInputLines()).ToList()).ToString();
+            return StepsNeededUntilRepeat(ParseMoons(input.ReadInputLines()).ToList()).Result.ToString();
         }
 
-        private int StepsNeededUntilRepeat(List<Moon> moons)
+        private async Task<long> StepsNeededUntilRepeat(List<Moon> moons)
         {
-            int steps = 0;
+            long stepsX = 0, stepsY = 0, stepsZ = 0;
 
-            do
+            Task.WaitAll(Task.Factory.StartNew(async () => { stepsX = await CountCycleLengthForDimension(moons.ConvertAll(moon => (moon.Clone() as Moon)!), Dimension.X); }),
+                Task.Factory.StartNew(async () => { stepsY = await CountCycleLengthForDimension(moons.ConvertAll(moon => (moon.Clone() as Moon)!), Dimension.Y); }),
+                Task.Factory.StartNew(async () => { stepsZ = await CountCycleLengthForDimension(moons.ConvertAll(moon => (moon.Clone() as Moon)!), Dimension.Z); }));
+
+            while (stepsX == 0 || stepsY == 0 || stepsZ == 0)
             {
-
+                await Task.Delay(500);
             }
-            while (null);
+
+            return MathExtensions.LowestCommonMultiple(MathExtensions.LowestCommonMultiple(stepsX, stepsY), stepsZ);
         }
         private int TotalEnergyInSystem(List<Moon> moons)
         {
@@ -86,6 +92,49 @@ namespace MyAoC2019.Solutions.Day12
             {
                 return 1;
             }
+        }
+        private async Task<long> CountCycleLengthForDimension(List<Moon> moons, Dimension dimension)
+        {
+            return await Task.Run(() =>
+            {
+                var states = new HashSet<(int, int, int, int, int, int, int, int)>();
+
+                states.Add((moons[0].GetPositionByDimension(dimension), moons[0].GetVelocityByDimension(dimension),
+                    moons[1].GetPositionByDimension(dimension), moons[1].GetVelocityByDimension(dimension),
+                    moons[2].GetPositionByDimension(dimension), moons[2].GetVelocityByDimension(dimension),
+                    moons[3].GetPositionByDimension(dimension), moons[3].GetVelocityByDimension(dimension)));
+
+                long count = 0;
+
+                do
+                {
+                    count++;
+
+                    CalculateVelocityByGravity(moons);
+
+                    foreach (var moon in moons)
+                    {
+                        moon.UpdatePosition(dimension);
+                    }
+
+                    var current = (moons[0].GetPositionByDimension(dimension), moons[0].GetVelocityByDimension(dimension),
+                        moons[1].GetPositionByDimension(dimension), moons[1].GetVelocityByDimension(dimension),
+                        moons[2].GetPositionByDimension(dimension), moons[2].GetVelocityByDimension(dimension),
+                        moons[3].GetPositionByDimension(dimension), moons[3].GetVelocityByDimension(dimension));
+
+                    if (states.Contains(current))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        states.Add(current);
+                    }
+                }
+                while (true);
+
+                return count;
+            });
         }
         private IEnumerable<Moon> ParseMoons(IEnumerable<string> input)
         {
