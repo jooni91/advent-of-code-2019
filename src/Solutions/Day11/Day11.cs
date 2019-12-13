@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
+﻿using System.Drawing;
 using System.Linq;
+using MyAoC2019.Computer.FileSystem;
+using MyAoC2019.Computer.GPU;
 using MyAoC2019.Devices.Robots;
 using MyAoC2019.Utilities;
 
@@ -27,30 +26,12 @@ namespace MyAoC2019.Solutions.Day11
 
             if (!UnitTestMode)
             {
-                GenerateBWImage(robot.DrawBitmap(robot.GetGridDimensions(), 20, new Size(30, 30)), "AoC2019_Day11_generated");
+                using var bitmap = GraphicsOutput.DrawBitmap(robot.Grid, GraphicsOutput.GetDimensions(robot.Grid), 20, robot.BackgroundDefaultColor, new Size(30, 30), Color.Black);
+                FileOutput.GenerateImage(bitmap, "AoC2019_Day11_generated");
             }
 
             // Return this to unit tests, but verify the actuall registration identifier in a generated image.
             return robot.GetUniquePaintingSteps().ToString();
-        }
-
-        private void GenerateBWImage(Bitmap bitmap, string filename)
-        {
-            Console.WriteLine("Do you want to generate a PNG of the registration identifier? Type 'Y' and press enter for yes.");
-
-            if (Console.ReadLine().ToUpper() != "Y")
-            {
-                return;
-            }
-
-            Console.WriteLine("Enter the full (absolute) path where the generated image should be saved to: ");
-            var path = Console.ReadLine();
-
-            using var fs = new FileStream(Path.Combine(path, $"{filename}.png"), FileMode.Create);
-
-            bitmap.Save(fs, ImageCodecInfo.GetImageEncoders().First(encoder => encoder.MimeType == "image/png"), null);
-
-            Console.WriteLine("The image generation was successful!");
         }
     }
 }

@@ -13,13 +13,12 @@ namespace MyAoC2019.Devices.Robots
     /// </summary>
     public class PaintingRobot
     {
-        private readonly Dictionary<Vector2, Color> _grid = new Dictionary<Vector2, Color>();
         private readonly IntcodeComputer _cpu;
 
         private Direction _facingDirection = Direction.Up;
         private Vector2 _robotPos = new Vector2(0, 0);
 
-        private Color BackgroundDefaultColor { get; }
+        public Color BackgroundDefaultColor { get; }
 
         /// <summary>
         /// Constructs a new painting robot. Unfortunatly the robot can be programmed only once. Capitalism!
@@ -32,6 +31,8 @@ namespace MyAoC2019.Devices.Robots
 
             BackgroundDefaultColor = backgroundColor ?? Color.Black;
         }
+
+        public Dictionary<Vector2, Color> Grid { get; } = new Dictionary<Vector2, Color>();
 
         /// <summary>
         /// Call this to paint the painting.
@@ -65,75 +66,7 @@ namespace MyAoC2019.Devices.Robots
         /// <returns></returns>
         public int GetUniquePaintingSteps()
         {
-            return _grid.Count;
-        }
-
-        /// <summary>
-        /// Draw a bitmap of the painting.
-        /// </summary>
-        /// <param name="size">The size of the bitmap.</param>
-        /// <param name="scale">Scale the bitmap size by this factor.</param>
-        /// <param name="_padding">The padding to apply to the bitmap.</param>
-        /// <param name="borderColor">If a padding is specified you can define the color for the padding. The default is <see cref="Color.Transparent"/>.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="size"/> width or height is zero or less.</exception>
-        public Bitmap DrawBitmap(Size size, float scale = 1.0f, Size? _padding = null, Color? borderColor = null)
-        {
-            if (size.Width <= 0 || size.Height <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(size), "The size can not contain a zero or negative number.");
-            }
-
-            var width = (int)(size.Width * scale);
-            var height = (int)(size.Height * scale);
-            var padding = _padding ?? new Size(0, 0);
-
-            var bitmap = new Bitmap(width + (padding.Width * 2), height + (padding.Height * 2));
-
-            // Draw the border
-            for (var x = 0; x < bitmap.Width; x++)
-            {
-                for (var y = 0; y < bitmap.Height; y++)
-                {
-                    if (y < padding.Height || y > bitmap.Height - 1 - padding.Height || x < padding.Width || x > bitmap.Width - 1 - padding.Width)
-                    {
-                        bitmap.SetPixel(x, y, borderColor ?? Color.Transparent);
-                    }
-                }
-            }
-
-            // Draw the image
-            for (var x = 0; x < width; x++)
-            {
-                for (var y = 0; y < height; y++)
-                {
-                    var color = _grid.ContainsKey(new Vector2((int)(x / scale), (int)(y / scale)))
-                        ? _grid[new Vector2((int)(x / scale), (int)(y / scale))]
-                        : BackgroundDefaultColor == Color.Black ? Color.White : Color.Black;
-
-                    bitmap.SetPixel(x + padding.Width, y + padding.Height, color);
-                }
-            }
-
-            return bitmap;
-        }
-
-        /// <summary>
-        /// Get the dimensions of the painting. Make sure you have called <see cref="Paint"/>, before calling this one.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException">Thrown when nothing was painted yet.</exception>
-        public Size GetGridDimensions()
-        {
-            if (_grid.Count < 2)
-            {
-                throw new InvalidOperationException("There was no painting to get dimensions of. Make sure to call Paint first.");
-            }
-
-            var rect = new Rectangle((int)_grid.Keys.Min(vect => vect.X), (int)_grid.Keys.Min(vect => vect.Y),
-                (int)_grid.Keys.Max(vect => vect.X), (int)_grid.Keys.Max(vect => vect.Y));
-
-            return new Size(rect.Width, rect.Height);
+            return Grid.Count;
         }
 
         private void MoveOneStepForward()
@@ -162,18 +95,18 @@ namespace MyAoC2019.Devices.Robots
         }
         private void UpdateCurrentPositionColor(Color color)
         {
-            if (_grid.ContainsKey(_robotPos))
+            if (Grid.ContainsKey(_robotPos))
             {
-                _grid[_robotPos] = color;
+                Grid[_robotPos] = color;
             }
             else
             {
-                _grid.Add(_robotPos, color);
+                Grid.Add(_robotPos, color);
             }
         }
         private Color GetColorOfCurrentGrid()
         {
-            return _grid.ContainsKey(_robotPos) ? _grid[_robotPos] : BackgroundDefaultColor;
+            return Grid.ContainsKey(_robotPos) ? Grid[_robotPos] : BackgroundDefaultColor;
         }
     }
 }
