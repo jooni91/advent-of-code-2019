@@ -89,6 +89,38 @@ namespace MyAoC2019.Tests.Utilities
             // Assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(30, 5, 5)]
+        [InlineData(100, 30, 10)]
+        [InlineData(12, 9, 3)]
+        public void GreatestCommonDivider_ShouldReturn_ExpectedValue(int a, int b, int expected)
+        {
+            // Arrange
+
+
+            // Act
+            var result = MathExtensions.GreatestCommonDivider(a, b);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(30, 5, 30)]
+        [InlineData(100, 30, 300)]
+        [InlineData(12, 9, 36)]
+        public void LowestCommonMultiple_ShouldReturn_ExpectedValue(int a, int b, int expected)
+        {
+            // Arrange
+
+
+            // Act
+            var result = MathExtensions.LowestCommonMultiple(a, b);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
     }
 
     public class GeneratePermutationsTestData : IEnumerable<object[]>

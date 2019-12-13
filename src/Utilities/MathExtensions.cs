@@ -84,6 +84,57 @@ namespace MyAoC2019.Utilities
             return ManhattanDistance((pointA.X, pointA.Y), (pointB.X, pointB.Y));
         }
 
+        /// <summary>
+        /// Calculate the greatest common divider of two specified values. The order of the arguments doesn't matter here.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static long GreatestCommonDivider(long a, long b)
+        {
+            while (b != 0)
+            {
+                var mod = a % b;
+                a = b;
+                b = mod;
+            }
+
+            return a;
+        }
+
+        /// <summary>
+        /// Calculate the greatest common divider of two specified values. The order of the arguments doesn't matter here.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static int GreatestCommonDivider(int a, int b)
+        {
+            return (int)GreatestCommonDivider((long)a, (long)b);
+        }
+
+        /// <summary>
+        /// Calculate the lowest common multiplier of two specified values. The order of the arguments doesn't matter here.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static long LowestCommonMultiple(long a, long b)
+        {
+            return a * b / GreatestCommonDivider(a, b);
+        }
+
+        /// <summary>
+        /// Calculate the lowest common multiplier of two specified values. The order of the arguments doesn't matter here.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static int LowestCommonMultiple(int a, int b)
+        {
+            return (int)LowestCommonMultiple((long)a, (long)b);
+        }
+
         private static T[] GenerateKthPermutation<T>(long k, T[] objs)
         {
             var permutedObjs = new T[objs.Length];
