@@ -27,13 +27,13 @@ Links to solution for each day:
 
 [Day 9: Sensor Boost](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day09)
 
-[Day 10](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day10)
+[Day 10: Monitoring Station](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day10)
 
-[Day 11](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day11)
+[Day 11: Space Police](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day11)
 
-[Day 12](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day12)
+[Day 12: The N-Body Problem](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day12)
 
-[Day 13](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day13)
+[Day 13: Care Package](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day13)
 
 [Day 14](https://github.com/jooni91/advent-of-code-2019/tree/master/src/Solutions/Day14)
 
