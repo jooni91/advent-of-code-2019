@@ -33,7 +33,7 @@ namespace MyAoC2019.Computer.GPU
             var bitmap = new Bitmap(width + (_padding.Width * 2), height + (_padding.Height * 2));
 
             // Draw the border
-            if (_padding != null)
+            if (_padding != Size.Empty)
             {
                 for (var x = 0; x < bitmap.Width; x++)
                 {
