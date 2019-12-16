@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using MyAoC2019.Computer;
-using MyAoC2019.Utilities;
 
 namespace MyAoC2019.Devices.Robots
 {
     /// <summary>
     /// A super cool painting robot. Don't expect it to talk to you.
     /// </summary>
-    public class PaintingRobot
+    public class PaintingRobot : Robot
     {
-        private readonly IntcodeComputer _cpu;
-
-        private Direction _facingDirection = Direction.Up;
-        private Vector2 _robotPos = new Vector2(0, 0);
-
         public Color BackgroundDefaultColor { get; }
 
         /// <summary>
@@ -26,9 +19,8 @@ namespace MyAoC2019.Devices.Robots
         /// <param name="paintingInstructions">The program that this robot will be running.</param>
         /// <param name="backgroundColor">The initial background of the robots space.</param>
         public PaintingRobot(long[] paintingInstructions, Color? backgroundColor = null)
+            : base(paintingInstructions)
         {
-            _cpu = new IntcodeComputer(paintingInstructions);
-
             BackgroundDefaultColor = backgroundColor ?? Color.Black;
         }
 
@@ -69,30 +61,6 @@ namespace MyAoC2019.Devices.Robots
             return Grid.Count;
         }
 
-        private void MoveOneStepForward()
-        {
-            var step = _facingDirection switch
-            {
-                Direction.Up => new Vector2(0, -1),
-                Direction.Down => new Vector2(0, 1),
-                Direction.Left => new Vector2(-1, 0),
-                Direction.Right => new Vector2(1, 0),
-                _ => throw new InvalidOperationException()
-            };
-
-            _robotPos += step;
-        }
-        private void Turn(bool turnLeft)
-        {
-            _facingDirection = _facingDirection switch
-            {
-                Direction.Left => turnLeft ? Direction.Down : Direction.Up,
-                Direction.Right => turnLeft ? Direction.Up : Direction.Down,
-                Direction.Up => turnLeft ? Direction.Left : Direction.Right,
-                Direction.Down => turnLeft ? Direction.Right : Direction.Left,
-                _ => throw new InvalidOperationException()
-            };
-        }
         private void UpdateCurrentPositionColor(Color color)
         {
             if (Grid.ContainsKey(_robotPos))
