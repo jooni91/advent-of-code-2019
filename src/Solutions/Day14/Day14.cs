@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
+using MyAoC2019.Devices.InterStellarRefinery;
 using MyAoC2019.Utilities;
 
 namespace MyAoC2019.Solutions.Day14
@@ -11,12 +10,17 @@ namespace MyAoC2019.Solutions.Day14
 
         protected override string PartOne(string input)
         {
-            throw new NotImplementedException();
+            var nanofactory = new Nanofactory();
+
+            return nanofactory.GetMaterialCost(input.ReadInputLines().ToArray(), "ORE", "FUEL", 1).ToString();
         }
 
         protected override string PartTwo(string input)
         {
-            throw new NotImplementedException();
+            var nanofactory = new Nanofactory();
+            nanofactory.Initialize(input.ReadInputLines().ToArray());
+
+            return nanofactory.GetFuelAmountForOreCargo("ORE", "FUEL", 1000000000000).ToString();
         }
     }
 }
