@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using MyAoC2019.Extensions;
 
 namespace MyAoC2019.Devices.Robots
 {
@@ -16,13 +17,15 @@ namespace MyAoC2019.Devices.Robots
 
         }
 
-        public int GetFastesWayToOxygenSystem()
+        public Vector2 OxygenSystemLocation { get; private set; }
+
+        public Dictionary<Vector2, TileType> ExploreTheMap()
         {
             _map.Add(_robotPos, TileType.Start);
             _cpu.RunProgram();
             var count = 0;
 
-            while(count < 100000)
+            while(count < 300000)
             {
                 _facingDirection = GetNextBestDirectionToExplore();
 
@@ -30,9 +33,9 @@ namespace MyAoC2019.Devices.Robots
 
                 if (_cpu.Outputs.Last() == 0)
                 {
-                    if (!_map.ContainsKey(_robotPos + GetCoordinatesOfDirection(_facingDirection)))
+                    if (!_map.ContainsKey(_robotPos + _facingDirection.GetCoordinatesOfDirection()))
                     {
-                        _map.Add(_robotPos + GetCoordinatesOfDirection(_facingDirection), TileType.Wall);
+                        _map.Add(_robotPos + _facingDirection.GetCoordinatesOfDirection(), TileType.Wall);
                     }
 
                     CheckAndMarkDeadEnd();
@@ -52,12 +55,18 @@ namespace MyAoC2019.Devices.Robots
                 if (_cpu.Outputs.Last() == 2)
                 {
                     _map[_robotPos] = TileType.OxygenSystem;
+                    OxygenSystemLocation = _robotPos;
+                }
+
+                if (_map[_robotPos] != TileType.Start && _map[_robotPos] != TileType.OxygenSystem)
+                {
+                    CheckAndMarkDeadEnd();
                 }
 
                 count++;
             }
 
-            return 0;
+            return _map;
         }
 
         private Direction GetNextBestDirectionToExplore()
@@ -81,26 +90,21 @@ namespace MyAoC2019.Devices.Robots
             }
 
             // Prefer to go forward and not back, if possible
-            if (directions.Count > 1 && directions.Contains(GetOppositeDirection(_facingDirection)))
+            if (directions.Count > 1 && directions.Contains(_facingDirection.GetOppositeDirection()))
             {
-                directions.Remove(GetOppositeDirection(_facingDirection));
+                directions.Remove(_facingDirection.GetOppositeDirection());
             }
 
-            if (directions.Count == 1)
-            {
-                return directions.Single();
-            }
-
-            return directions[new Random().Next(0, directions.Count - 1)];
+            return directions.Count == 1 ? directions.Single() : directions[new Random().Next(0, directions.Count - 1)];
         }
         private bool ShouldNotGoInDirection(Direction direction)
         {
-            var coordinalDirection = GetCoordinatesOfDirection(direction);
-            var relativeLeft = GetCoordinatesOfDirection(GetRelativeLeft(direction));
-            var relativeRight = GetCoordinatesOfDirection(GetRelativeRight(direction));
+            var coordinateDirection = direction.GetCoordinatesOfDirection();
+            var relativeLeft = direction.GetRelativeLeft().GetCoordinatesOfDirection();
+            var relativeRight = direction.GetRelativeRight().GetCoordinatesOfDirection();
             var calculationPosition = _robotPos;
 
-            if (!_map.ContainsKey(calculationPosition + coordinalDirection))
+            if (!_map.ContainsKey(calculationPosition + coordinateDirection))
             {
                 return false;
             }
@@ -109,7 +113,7 @@ namespace MyAoC2019.Devices.Robots
 
             while (true)
             {
-                calculationPosition += coordinalDirection;
+                calculationPosition += coordinateDirection;
 
                 if (!_map.ContainsKey(calculationPosition + relativeLeft) || 
                     _map[calculationPosition + relativeLeft] == TileType.Empty ||
@@ -125,14 +129,14 @@ namespace MyAoC2019.Devices.Robots
                     hadPossibleWaysToGo = true;
                 }
 
-                if (!_map.ContainsKey(calculationPosition + coordinalDirection) ||
-                    _map[calculationPosition + coordinalDirection] == TileType.OxygenSystem)
+                if (!_map.ContainsKey(calculationPosition + coordinateDirection) ||
+                    _map[calculationPosition + coordinateDirection] == TileType.OxygenSystem)
                 {
                     hadPossibleWaysToGo = true;
                     break;
                 }
-                else if (_map[calculationPosition + coordinalDirection] == TileType.Wall ||
-                    _map[calculationPosition + coordinalDirection] == TileType.DeadEnd)
+                else if (_map[calculationPosition + coordinateDirection] == TileType.Wall ||
+                    _map[calculationPosition + coordinateDirection] == TileType.DeadEnd)
                 {
                     break;
                 }
@@ -165,39 +169,6 @@ namespace MyAoC2019.Devices.Robots
                 yield return y == -1 ? Direction.Down : Direction.Up;
             }
         }
-        private Direction GetRelativeLeft(Direction direction)
-        {
-            return direction switch
-            {
-                Direction.Up => Direction.Left,
-                Direction.Down => Direction.Right,
-                Direction.Left => Direction.Down,
-                Direction.Right => Direction.Up,
-                _ => throw new InvalidOperationException()
-            };
-        }
-        private Direction GetRelativeRight(Direction direction)
-        {
-            return direction switch
-            {
-                Direction.Up => Direction.Right,
-                Direction.Down => Direction.Left,
-                Direction.Left => Direction.Up,
-                Direction.Right => Direction.Down,
-                _ => throw new InvalidOperationException()
-            };
-        }
-        private Direction GetOppositeDirection(Direction direction)
-        {
-            return direction switch
-            {
-                Direction.Up => Direction.Down,
-                Direction.Down => Direction.Up,
-                Direction.Left => Direction.Right,
-                Direction.Right => Direction.Left,
-                _ => throw new InvalidOperationException()
-            };
-        }
         private List<Vector2> GetAllDirectionsAsCoordinates()
         {
             return new List<Vector2>()
@@ -218,7 +189,7 @@ namespace MyAoC2019.Devices.Robots
 
                 for (int i = 0; i < sightOfView; i++)
                 {
-                    position += GetCoordinatesOfDirection(direction);
+                    position += direction.GetCoordinatesOfDirection();
 
                     if (!_map.ContainsKey(position))
                     {
@@ -232,25 +203,7 @@ namespace MyAoC2019.Devices.Robots
                 }
             }
 
-            if (priority.Count == 0)
-            {
-                return directions;
-            }
-            else
-            {
-                return priority;
-            }
-        }
-        private Vector2 GetCoordinatesOfDirection(Direction direction)
-        {
-            return direction switch
-            {
-                Direction.Up => new Vector2(0, 1),
-                Direction.Down => new Vector2(0, -1),
-                Direction.Left => new Vector2(-1, 0),
-                Direction.Right => new Vector2(1, 0),
-                _ => throw new InvalidOperationException()
-            };
+            return priority.Count == 0 ? directions : priority;
         }
         private void CheckAndMarkDeadEnd()
         {
@@ -289,6 +242,9 @@ namespace MyAoC2019.Devices.Robots
             var smallestY = Math.Abs(_map.Min(tile => tile.Key.Y));
             var drawableGrid = new Dictionary<Vector2, Color>();
 
+            _map[OxygenSystemLocation] = TileType.OxygenSystem;
+            _map[Vector2.Zero] = TileType.Start;
+
             foreach(var tile in _map)
             {
                 normalizedGrid.Add(new Vector2(tile.Key.X + smallestX, tile.Key.Y + smallestY), tile.Value);
@@ -300,8 +256,9 @@ namespace MyAoC2019.Devices.Robots
                 {
                     TileType.Wall => Color.Black,
                     TileType.Empty => Color.AntiqueWhite,
-                    TileType.Start => Color.Green,
-                    TileType.OxygenSystem => Color.AntiqueWhite,
+                    TileType.Start => Color.Aqua,
+                    TileType.OxygenSystem => Color.Crimson,
+                    TileType.DeadEnd => Color.IndianRed,
                     _ => Color.White
                 };
 
