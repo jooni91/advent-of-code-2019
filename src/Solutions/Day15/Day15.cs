@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using MyAoC2019.Computer.FileSystem;
 using MyAoC2019.Computer.GPU;
 using MyAoC2019.Devices.Robots;
@@ -21,13 +21,15 @@ namespace MyAoC2019.Solutions.Day15
                 FileOutput.GenerateImage(bitmap, "AoC2019_Day15_generated", @"../../../../images");
             }
 
-            return map.Count.ToString();
+            return (map.Count(tile => tile.Value == TileType.Empty) + 2).ToString();
         }
 
         protected override string PartTwo(string input)
         {
             var robot = new RepairDroid(input);
             var map = robot.ExploreTheMap();
+
+
 
             return "";
         }

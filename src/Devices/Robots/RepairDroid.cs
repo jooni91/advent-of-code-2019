@@ -25,7 +25,7 @@ namespace MyAoC2019.Devices.Robots
             _cpu.RunProgram();
             var count = 0;
 
-            while(count < 300000)
+            while(count < 800000)
             {
                 _facingDirection = GetNextBestDirectionToExplore();
 
@@ -58,10 +58,7 @@ namespace MyAoC2019.Devices.Robots
                     OxygenSystemLocation = _robotPos;
                 }
 
-                if (_map[_robotPos] != TileType.Start && _map[_robotPos] != TileType.OxygenSystem)
-                {
-                    CheckAndMarkDeadEnd();
-                }
+                CheckAndMarkDeadEnd();
 
                 count++;
             }
@@ -82,8 +79,7 @@ namespace MyAoC2019.Devices.Robots
                 }
             }
 
-            // Try to prefer directions which are unexplored and also disable dead end mode, 
-            // because we have multiple directions to go
+            // Try to prefer directions which are unexplored
             if (directions.Count > 1)
             {
                 directions = PrioritizeDirections(directions, 25);
@@ -130,7 +126,8 @@ namespace MyAoC2019.Devices.Robots
                 }
 
                 if (!_map.ContainsKey(calculationPosition + coordinateDirection) ||
-                    _map[calculationPosition + coordinateDirection] == TileType.OxygenSystem)
+                    _map[calculationPosition + coordinateDirection] == TileType.OxygenSystem ||
+                    _map[calculationPosition + coordinateDirection] == TileType.Start)
                 {
                     hadPossibleWaysToGo = true;
                     break;
@@ -200,6 +197,12 @@ namespace MyAoC2019.Devices.Robots
                     {
                         break;
                     }
+                    else if (!_map.ContainsKey(position + direction.GetRelativeLeft().GetCoordinatesOfDirection()) ||
+                        !_map.ContainsKey(position + direction.GetRelativeRight().GetCoordinatesOfDirection()))
+                    {
+                        priority.Add(direction);
+                        break;
+                    }
                 }
             }
 
@@ -207,6 +210,11 @@ namespace MyAoC2019.Devices.Robots
         }
         private void CheckAndMarkDeadEnd()
         {
+            if (_map[_robotPos] == TileType.Start || _map[_robotPos] == TileType.OxygenSystem)
+            {
+                return;
+            }
+
             var wallAndDeadEndCount = 0;
 
             foreach (var coord in GetAllDirectionsAsCoordinates())
