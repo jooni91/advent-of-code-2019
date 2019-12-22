@@ -56,6 +56,8 @@ Your puzzle answer was `15410`.
 
 ![Automatically generated](../../../images/AoC2019_day13_0.png)
 
-#### AI playing the game for me
+#### AI playing the game for me visualization
 
-Link to YouTube video will be added as soon as I got the video published.
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=LivNL4bpYw0
+" target="_blank"><img src="http://img.youtube.com/vi/LivNL4bpYw0/0.jpg" 
+alt="AoC2019_Day13_by_jooni91" width="240" height="180" border="10" /></a>
