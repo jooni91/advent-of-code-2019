@@ -17,66 +17,26 @@ namespace MyAoC2019.Devices.InterStellarRefinery
             ParseReactionsFormula(reactionsFormula);
         }
 
-        public long GetMaterialCost(string[] reactionsFormula, string materialToCount, string materialToProduce, int amountToProduce)
+        public long GetMaterialCost(string[] reactionsFormula, string materialToCount, string materialToProduce, long amountToProduce)
         {
             Initialize(reactionsFormula);
 
-            CalcProductionRequirementsForMaterial(materialToCount, materialToProduce, amountToProduce);
+            CalcProductionRequirementsForMaterial(materialToCount, materialToProduce, ref amountToProduce);
 
             return _rawMaterialDepth;
         }
         public long GetFuelAmountForOreCargo(string materialToCount, string materialToProduce, long oreCargoQuantity)
         {
-            //foreach (var reaction in _reactions.Where(react => react.Value.Any(dep => dep.Name == "ORE")))
-            //{
-            //    _rawMaterialDepth = 0;
-
-            //    CalcProductionRequirementsForMaterial(materialToCount, reaction.Key.Name, reaction.Key.Produced);
-
-            //    _reactionCost.Add(reaction.Key.Name, (decimal)_rawMaterialDepth / (decimal)reaction.Key.Produced);
-            //}
-
-            //while (_reactionCost.Count != _reactions.Count)
-            //{
-            //    foreach (var reaction in _reactions.Where(react => react.Value.All(dep => _reactionCost.ContainsKey(dep.Name)) && !_reactionCost.ContainsKey(react.Key.Name)))
-            //    {
-            //        decimal cost = 0;
-
-            //        foreach (var (Name, Required) in reaction.Value)
-            //        {
-            //            cost += _reactionCost[Name] * Required;
-            //        }
-
-            //        _reactionCost.Add(reaction.Key.Name, (decimal)cost / (decimal)reaction.Key.Produced);
-            //    }
-            //}
-
-            //var fuel = 0;
-
-            //while (true)
-            //{
-            //    oreCargoQuantity -= (long)_reactionCost["FUEL"];
-
-            //    if (oreCargoQuantity <= 0)
-            //    {
-            //        break;
-            //    }
-
-            //    fuel++;
-            //}
-
-            //var result = _reactionCost["FUEL"] * 200;
-
             long max = 1;
 
-            CalcProductionRequirementsForMaterial(materialToCount, "FUEL", max);
+            CalcProductionRequirementsForMaterial(materialToCount, materialToProduce, ref max);
 
             while (_rawMaterialDepth < oreCargoQuantity)
             {
                 max *= 2;
 
                 _rawMaterialDepth = 0;
-                CalcProductionRequirementsForMaterial(materialToCount, "FUEL", max);
+                CalcProductionRequirementsForMaterial(materialToCount, materialToProduce, ref max);
             }
 
             // converge on correct answer using binary chop
@@ -86,7 +46,7 @@ namespace MyAoC2019.Devices.InterStellarRefinery
                 long mid = (min + max) / 2;
 
                 _rawMaterialDepth = 0;
-                CalcProductionRequirementsForMaterial(materialToCount, "FUEL", mid);
+                CalcProductionRequirementsForMaterial(materialToCount, materialToProduce, ref mid);
 
                 if (_rawMaterialDepth < oreCargoQuantity)
                 {
@@ -103,42 +63,46 @@ namespace MyAoC2019.Devices.InterStellarRefinery
             return min;
         }
 
-        private void CalcProductionRequirementsForMaterial(string materialToCount, string materialToProduce, long amountToProduce)
+        private long CalcProductionRequirementsForMaterial(string materialToCount, string materialToProduce, ref long amountToProduce)
         {
             var materialProductionFormula = _reactions.First(react => react.Key.Name == materialToProduce);
             var inventoryCount = _inventory.ContainsKey(materialProductionFormula.Key.Name) ? _inventory[materialProductionFormula.Key.Name] : 0L;
 
-            for (long i = inventoryCount; i < amountToProduce; i += materialProductionFormula.Key.Produced)
+            if (inventoryCount != 0 && inventoryCount >= amountToProduce)
             {
-                foreach (var (Name, Required) in materialProductionFormula.Value)
-                {
-                    if (Name == materialToCount)
-                    {
-                        _rawMaterialDepth += Required;
-                        continue;
-                    }
+                return 0;
+            }
+            else if (inventoryCount > 0)
+            {
+                amountToProduce -= inventoryCount;
+                _inventory[materialProductionFormula.Key.Name] = 0;
+            }
 
-                    if (_inventory.ContainsKey(Name) && _inventory[Name] >= Required)
-                    {
-                        _inventory[Name] -= Required;
-                    }
-                    else
-                    {
-                        CalcProductionRequirementsForMaterial(materialToCount, Name, Required);
-                    }
+            var produceMultiplier = (long)Math.Ceiling(amountToProduce / (decimal)materialProductionFormula.Key.Produced);
+
+            foreach (var (Name, Required) in materialProductionFormula.Value)
+            {
+                var requiredMultiplied = Required * produceMultiplier;
+
+                if (Name == materialToCount)
+                {
+                    _rawMaterialDepth += requiredMultiplied;
+                    continue;
                 }
 
-                if (_inventory.ContainsKey(materialProductionFormula.Key.Name))
+                var produced = CalcProductionRequirementsForMaterial(materialToCount, Name, ref requiredMultiplied);
+
+                if (_inventory.ContainsKey(Name))
                 {
-                    _inventory[materialProductionFormula.Key.Name] += materialProductionFormula.Key.Produced;
+                    _inventory[Name] += (produced - requiredMultiplied);
                 }
                 else
                 {
-                    _inventory.Add(materialProductionFormula.Key.Name, materialProductionFormula.Key.Produced);
+                    _inventory.Add(Name, (produced - requiredMultiplied));
                 }
             }
 
-            _inventory[materialProductionFormula.Key.Name] -= amountToProduce;
+            return materialProductionFormula.Key.Produced * produceMultiplier;
         }
         private void ParseReactionsFormula(string[] reactionsFormula)
         {

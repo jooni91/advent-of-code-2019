@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
 namespace MyAoC2019.Tests.Solutions.Day14
 {
@@ -36,7 +33,7 @@ namespace MyAoC2019.Tests.Solutions.Day14
             var result = daySolution.GetResult(Part.Two);
 
             // Assert
-            Assert.Equal("69256", result);
+            Assert.Equal("4052920", result);
         }
     }
 }
